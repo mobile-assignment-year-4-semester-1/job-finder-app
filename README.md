@@ -1,1 +1,3 @@
-# flutter-group-6
+# job_finder_app
+
+A new Flutter project.
