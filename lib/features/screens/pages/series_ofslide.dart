@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:job_finder_app/features/screens/providers/onboading_provider.dart';
 import 'package:job_finder_app/features/utils/constants/app.colors.dart';
 import 'package:job_finder_app/features/utils/constants/images.dart';
-import 'package:job_finder_app/features/utils/constants/sizes.dart';
+import 'package:job_finder_app/features/utils/themes/light_mode.dart';
 
 class SeriesOfSlide extends StatelessWidget {
   SeriesOfSlide({super.key});
@@ -22,54 +22,58 @@ class SeriesOfSlide extends StatelessWidget {
             children: const [
               OnBoardingPage(
                 image: CallImages.onBoardingImage1,
-                title: "Choose your Products",
+                title: "Search your job",
                 description:
-                    "Browse through a wide range of products and select the ones that suit your needs effortlessly.",
+                    "Figure out your top five priorities whether it is company culture, salary.",
               ),
               OnBoardingPage(
                 image: CallImages.onBoardingImage2,
-                title: "Select Payment Method",
+                title: "Browse the perfect job",
                 description:
-                    "Enjoy a seamless checkout experience by choosing your preferred payment option.",
+                    "Our job list includes several industries, so you can find the best job for you.",
               ),
               OnBoardingPage(
                 image: CallImages.onBoardingImage3,
-                title: "Fast Delivery",
+                title: "Apply to best jobs",
                 description:
-                    "Get your orders delivered quickly and efficiently right to your doorstep.",
+                    "You can apply to your desirable jobs very quickly and easily with ease.",
+              ),
+              OnBoardingPage(
+                image: CallImages.onBoardingImage3,
+                title: "Make your career",
+                description:
+                    "We help you find your dream job based on your skillset, location, demand.",
+              ),
+              OnBoardingPage(
+                image: CallImages.onBoardingImage3,
+                title: "Get job invitations",
+                description:
+                    "We will invite you to interviews and offer jobs based on your profile.",
               ),
             ],
           ),
 
-          // Skip Button (Top Right)
+          // Dot Indicators
           Positioned(
-            top: 40,
-            right: 20,
-            child: TextButton(
-              onPressed: controller.skipPage,
-              child: Text(
-                'Skip',
-                style: TextStyle(color: Colors.grey[600]),
-              ),
-            ),
-          ),
-
-          Positioned(
-            bottom: 40,
-            left: 20,
+            bottom: 100,
+            left: 0,
+            right: 0,
             child: Obx(
               () => Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
-                  3,
-                  (index) => Container(
-                    margin: const EdgeInsets.all(4),
-                    width: controller.currentPageIndex.value == index ? 12 : 8,
+                  5,
+                  (index) => AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    width:
+                        controller.currentPageIndex.value == index ? 20 : 8,
                     height: 8,
                     decoration: BoxDecoration(
                       color: controller.currentPageIndex.value == index
-                          ? AppColors.text1
-                          : Colors.grey,
-                      shape: BoxShape.circle,
+                          ? AppColors.primary
+                          : Colors.grey[400],
+                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                 ),
@@ -77,21 +81,37 @@ class SeriesOfSlide extends StatelessWidget {
             ),
           ),
 
-          // Next Button (Bottom Right)
+          // Bottom Navigation
           Positioned(
             bottom: 40,
+            left: 20,
             right: 20,
-            child: GestureDetector(
-              onTap: controller.nextPage,
-              child: Container(
-                padding: const EdgeInsets.all(12),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.backgroundItem,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  onPressed: controller.skipPage,
+                  child: const Text(
+                    'Skip',
+                    style: TextStyle(color: Colors.grey, fontSize: 16),
+                  ),
                 ),
-                child: const Icon(Icons.arrow_forward,
-                    color: Colors.white, size: 24),
-              ),
+                ElevatedButton(
+                  onPressed: controller.nextPage,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: CallColors.buttonGreen,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text(
+                    'Next',
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -116,21 +136,34 @@ class OnBoardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(TSizes.defaultSpace),
+      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(image, height: 200),
-          const SizedBox(height: TSizes.spaceBtwItems),
+          // Circular Image with Background
+          Container(
+            padding: const EdgeInsets.all(24),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color(0xFFFFC940), // yellow-orange background
+            ),
+            child: Image.asset(image, height: 200),
+          ),
+          const SizedBox(height: 40),
+
+          // Title
           Text(
             title,
+            textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
-              color: AppColors.text1,
+              color: Colors.black,
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 16),
+
+          // Description
           Text(
             description,
             textAlign: TextAlign.center,

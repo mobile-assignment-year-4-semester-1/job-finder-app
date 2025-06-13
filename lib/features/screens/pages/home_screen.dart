@@ -1,220 +1,310 @@
 import 'package:flutter/material.dart';
+import 'package:job_finder_app/features/utils/constants/images.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Static categories and products for demonstration
-    final categories = [
-      {'id': null, 'name': 'All Categories'},
-      {'id': 1, 'name': 'Chairs'},
-      {'id': 2, 'name': 'Tables'},
-      {'id': 3, 'name': 'Sofas'},
+    final featuredJobs = [
+      {
+        'company': 'Facebook',
+        'position': 'Software Engineer',
+        'location': 'California, USA',
+        'salary': '\$180,000/year',
+        'type': ['IT', 'Full-Time', 'Junior'],
+        'logo': Icons.facebook,
+        'bgColor': Colors.blue,
+      },
+      {
+        'company': 'Dribbble',
+        'position': 'Designer',
+        'location': 'New York, USA',
+        'salary': '\$160,000/year',
+        'type': ['Design', 'Remote', 'Senior'],
+        'logo': Icons.palette,
+        'bgColor': Colors.orange,
+      },
+      {
+        'company': 'Rith Adric',
+        'position': 'Software Development',
+        'location': 'Phnom Penh, Cambodia',
+        'salary': '\$180,000/year',
+        'type': ['Window', 'Mac', 'linux'],
+        'logo': Icons.palette,
+        'bgColor': Color(0xFF6281a7),
+      },
     ];
 
-    final products = [
+    final popularJobs = [
       {
-        'name': 'Modern Chair',
-        'price': 120,
-        'image_url': 'https://via.placeholder.com/180x135.png?text=Chair'
+        'title': 'Jr Executive',
+        'company': 'Burger King',
+        'salary': '\$96,000/y',
+        'location': 'Los Angeles, US',
+        'logo': '🍔',
       },
       {
-        'name': 'Classic Table',
-        'price': 220,
-        'image_url': 'https://via.placeholder.com/180x135.png?text=Table'
-      },
-      {
-        'name': 'Luxury Sofa',
-        'price': 350,
-        'image_url': 'https://via.placeholder.com/180x135.png?text=Sofa'
+        'title': 'Product Manager',
+        'company': 'Beats',
+        'salary': '\$84,000/y',
+        'location': 'Florida, US',
+        'logo': '🎧',
       },
     ];
-
-    int selectedCategoryIndex = 0;
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: const Text(
-          'Discover The Best\nFurniture',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: IconButton(
-              icon: Icon(Icons.shopping_cart, size: 32, color: Colors.black),
-              onPressed: () {},
-            ),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Search for furniture',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Categories',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-              height: 40,
-              width: double.infinity,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: ChoiceChip(
-                      label: Text(
-                        categories[index]['name'] as String,
-                        style: TextStyle(
-                          color: selectedCategoryIndex == index
-                              ? Colors.white
-                              : Colors.grey,
-                        ),
-                      ),
-                      selected: selectedCategoryIndex == index,
-                      onSelected: (_) {},
-                      selectedColor: Colors.black,
-                      backgroundColor: Colors.grey[200],
-                    ),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Products List',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-              height: 225,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: products.length,
-                itemBuilder: (context, index) {
-                  return ProductCard(product: products[index]);
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ProductCard extends StatelessWidget {
-  final dynamic product;
-  const ProductCard({super.key, required this.product});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 180,
-      margin: const EdgeInsets.symmetric(horizontal: 8),
-      child: Card(
-        color: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        elevation: 2,
-        child: SizedBox(
-          height: 200,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                ),
-                child: Container(
-                  width: double.infinity,
-                  height: 135,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(product['image_url'] ?? ''),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      product['name'],
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
                         Text(
-                          '\$${product['price']}',
-                          style: const TextStyle(
+                          "Welcome to Job-Finder!",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          "Discover Jobs 🔥",
+                          style: TextStyle(
+                            fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Colors.black,
                           ),
                         ),
-                        Container(
-                          height: 40,
-                          width: 40,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.black,
+                      ],
+                    ),
+                    Stack(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Colors.purple,
+                          radius: 24,
+                          child: Image.asset(
+                            CallImages.onBoardingImage1,
+                            height: 24,
                           ),
-                          child: IconButton(
-                            icon: const Icon(Icons.add, color: Colors.white),
-                            onPressed: () {},
+                        ),
+                        const Positioned(
+                          right: 0,
+                          top: 0,
+                          child: CircleAvatar(
+                            radius: 6,
+                            backgroundColor: Colors.red,
                           ),
                         ),
                       ],
                     ),
                   ],
                 ),
+                const SizedBox(height: 24),
+
+                // Search bar
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: TextField(
+                    decoration: const InputDecoration(
+                      hintText: "Search a job or position",
+                      border: InputBorder.none,
+                      icon: Icon(Icons.search),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Featured Jobs
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text(
+                      "Featured Jobs",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text("See all", style: TextStyle(color: Colors.blueAccent)),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  height: 180,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: featuredJobs.length,
+                    itemBuilder: (context, index) {
+                      final job = featuredJobs[index];
+                      return FeaturedJobCard(job: job);
+                    },
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Popular Jobs
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text(
+                      "Popular Jobs",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text("See all", style: TextStyle(color: Colors.blueAccent)),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                ...popularJobs.map((job) => PopularJobTile(job: job)).toList(),
+                const SizedBox(height: 24),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Featured Job Card Widget
+class FeaturedJobCard extends StatelessWidget {
+  final Map job;
+  const FeaturedJobCard({super.key, required this.job});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 280,
+      margin: const EdgeInsets.only(right: 17),
+      padding: const EdgeInsets.all(17),
+      decoration: BoxDecoration(
+        color: job['bgColor'],
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(job['logo'], color: Colors.white70, size: 28),
+          const SizedBox(height: 4),
+          Text(
+            job['position'],
+            style: const TextStyle(
+              color: Colors.white70,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          Text(job['company'], style: const TextStyle(color: Colors.white60)),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 6,
+            runSpacing: 2,
+            children: List.generate(
+              job['type'].length,
+              (i) => Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(45, 255, 255, 255),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  job['type'][i],
+                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                ),
+              ),
+            ),
+          ),
+          const Spacer(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                job['salary'],
+                style: const TextStyle(color: Colors.white, fontSize: 12),
+              ),
+              const Spacer(),
+              Text(
+                job['location'],
+                style: const TextStyle(color: Colors.white, fontSize: 12),
               ),
             ],
           ),
-        ),
+        ],
+      ),
+    );
+  }
+}
+
+// Popular Job Tile Widget
+class PopularJobTile extends StatelessWidget {
+  final Map job;
+  const PopularJobTile({super.key, required this.job});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 24,
+            backgroundColor: Colors.white,
+            child: Text(job['logo'], style: const TextStyle(fontSize: 20)),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  job['title'],
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  job['company'],
+                  style: const TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),
+          ),
+          Row(
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                job['salary'],
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+              Text(
+                job['location'],
+                style: const TextStyle(color: Colors.grey, fontSize: 12),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

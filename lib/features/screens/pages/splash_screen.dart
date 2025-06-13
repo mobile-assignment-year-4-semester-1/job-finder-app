@@ -11,7 +11,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   String displayText = "";
-  final String fullText = "Furniture";
+  final String fullText = "Job Finder";
   int charIndex = 0;
 
   @override
@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
           style: const TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF2F4B4E),
+            color: Color(0xFF008840),
           ),
         ),
       ),

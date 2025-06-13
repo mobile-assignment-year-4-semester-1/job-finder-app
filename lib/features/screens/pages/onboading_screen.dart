@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:job_finder_app/features/screens/pages/series_ofslide.dart';
 import 'package:job_finder_app/features/utils/constants/app.colors.dart';
+import 'package:job_finder_app/features/utils/constants/images.dart';
+import 'package:job_finder_app/features/utils/themes/light_mode.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -8,34 +10,39 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.defaultColor,
       body: Column(
         children: [
           Expanded(
             child:
-                Image.asset('assets/images/Onboarding.png', fit: BoxFit.cover),
+                Image.asset(CallImages.onBoardingImage1, height: 50)
+                // Image.asset(CallImages.onBoardingImage1, fit: BoxFit.cover),
           ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(33.0),
             child: Column(
               children: [
                 const Text(
-                  'Enjoy Your Online Shopping.',
+                  'Make your dream career with job Finder',
                   style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                       color: AppColors.text1),
-                  textAlign: TextAlign.left,
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 10),
-                const Text(
-                  'Browse through all categories and shop the best furniture for your dream house.',
+                const Padding(
+                  padding: EdgeInsets.only(left: 30, right: 30, bottom: 30),
+                  child: Text(
+                  'We help find your dream job according to your skillset, location & preference to build your career.',
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.backgroundItem,
+                    backgroundColor:CallColors.buttonGreen,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -49,7 +56,7 @@ class OnboardingScreen extends StatelessWidget {
                     );
                   },
                   child: const Text(
-                    'Get Started',
+                    'Explore',
                     style: TextStyle(fontSize: 16, color: AppColors.newText),
                   ),
                 ),

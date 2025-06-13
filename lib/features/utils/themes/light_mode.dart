@@ -6,6 +6,7 @@ class CallColors {
   static const Color primary = Color(0xFF485c75);
   static const Color secondary = Color(0xFF4b68ff);
   static const Color accent = Color(0xFFb0c7ff);
+  static const Color buttonGreen = Color(0xFF008840);
 
   // Text colors
   static const Color textPrimary = Color(0xFF485c75);
