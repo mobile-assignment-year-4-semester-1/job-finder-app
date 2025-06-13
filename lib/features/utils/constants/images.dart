@@ -8,10 +8,12 @@ class CallImages {
   static const String imageAdric = "assets/images/image_adric.png";
   static const String imageWork = "assets/images/image_work.png";
 
+  static const String onBoardingImage =
+      "assets/slideshow/Onboading.png";
   static const String onBoardingImage1 =
-      "assets/images/on_boarding_images/sammy-line-searching.gif";
+      "assets/slideshow/sammy-line-searching.gif";
   static const String onBoardingImage2 =
-      "assets/images/on_boarding_images/sammy-line-shopping.gif";
+      "assets/slideshow/sammy-line-shopping.gif";
   static const String onBoardingImage3 =
-      "assets/images/on_boarding_images/sammy-line-delivery.gif";
+      "assets/slideshow/sammy-line-delivery.gif";
 }
