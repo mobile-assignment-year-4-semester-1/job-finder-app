@@ -1,20 +1,42 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const MainApp());
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:job_finder_app/features/screens/pages/splash_screen.dart';
+import 'package:job_finder_app/widgets/theme_provider.dart';
+// ignore: depend_on_referenced_packages
+import 'package:provider/provider.dart';
+Future<void> main() async {
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: const JobFinder(),
+    ),
+  );
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class JobFinder extends StatelessWidget {
+  const JobFinder({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primaryColor: const Color(0xFF2F4B4E),
+            fontFamily: 'Roboto',
+            brightness: Brightness.light,
+          ),
+          darkTheme: ThemeData(
+            primaryColor: const Color(0xFF1A2A2D),
+            fontFamily: 'Roboto',
+            brightness: Brightness.dark,
+          ),
+          // themeMode:
+          //     themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+          home: const SplashScreen(),
+        );
+      },
     );
   }
 }
