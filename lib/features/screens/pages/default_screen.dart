@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:job_finder_app/features/screens/pages/message_screen.dart';
 import 'package:job_finder_app/features/screens/pages/saved_screan.dart';
+import 'package:job_finder_app/features/screens/pages/notification.dart';
 import 'package:job_finder_app/features/utils/constants/app.colors.dart';
 import 'package:job_finder_app/features/screens/pages/home_screen.dart';
 
@@ -18,6 +19,7 @@ class _DefaultScreenState extends State<DefaultScreen> {
     HomeScreen(),
     MessageScreen(),
     SavedScrean(),
+    NotificationScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -32,8 +34,7 @@ class _DefaultScreenState extends State<DefaultScreen> {
       debugShowCheckedModeBanner: false,
       title: 'Discover Jobs',
       initialRoute: '/',
-      routes: {
-      },
+      routes: {},
       home: Scaffold(
         backgroundColor: AppColors.background,
         body: _screens[_selectedIndex],
@@ -50,24 +51,23 @@ class _DefaultScreenState extends State<DefaultScreen> {
             ],
             borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           ),
-            child: BottomNavigationBar(
+          child: BottomNavigationBar(
             currentIndex: _selectedIndex,
             selectedItemColor: Colors.green,
             unselectedItemColor: Colors.grey,
             onTap: _onItemTapped,
             items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+              BottomNavigationBarItem(icon: Icon(Icons.message), label: ''),
               BottomNavigationBarItem(
-                icon: Icon(Icons.home), label: ''),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.message), label: ''),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.bookmark_border), label: ''),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person), label: ''),
+                icon: Icon(Icons.bookmark_border),
+                label: '',
+              ),
+              BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
             ],
-            ),
           ),
         ),
+      ),
     );
   }
 }

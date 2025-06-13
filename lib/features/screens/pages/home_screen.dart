@@ -287,9 +287,9 @@ class PopularJobTile extends StatelessWidget {
               ],
             ),
           ),
-          Row(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 job['salary'],
