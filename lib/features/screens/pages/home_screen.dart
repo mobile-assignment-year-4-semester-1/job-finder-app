@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:job_finder_app/features/screens/components/search_screen.dart';
 import 'package:job_finder_app/features/utils/constants/images.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -108,20 +109,38 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 24),
 
                 // Search bar
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      hintText: "Search a job or position",
-                      border: InputBorder.none,
-                      icon: Icon(Icons.search),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => SearchScreen()),
+                    );
+                    // AppRoute.key.currentState!.pushReplacementNamed(
+                    //   AppRoute.searchScreen, // You can change this to anything needed
+                    // );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 14,
+                    ),
+                    child: Row(
+                      children: const [
+                        Icon(Icons.search, color: Colors.grey),
+                        SizedBox(width: 8),
+                        Text(
+                          "Search a job or position",
+                          style: TextStyle(color: Colors.grey, fontSize: 16),
+                        ),
+                      ],
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 24),
 
                 // Featured Jobs
