@@ -4,6 +4,7 @@ import 'package:job_finder_app/features/screens/pages/saved_screan.dart';
 import 'package:job_finder_app/features/screens/pages/notification.dart';
 import 'package:job_finder_app/features/utils/constants/app.colors.dart';
 import 'package:job_finder_app/features/screens/pages/home_screen.dart';
+import 'package:job_finder_app/features/utils/themes/light_mode.dart';
 
 class DefaultScreen extends StatefulWidget {
   const DefaultScreen({super.key});
@@ -36,7 +37,7 @@ class _DefaultScreenState extends State<DefaultScreen> {
       initialRoute: '/',
       routes: {},
       home: Scaffold(
-        backgroundColor: AppColors.background,
+        backgroundColor: CallColors.defaultColor,
         body: _screens[_selectedIndex],
         bottomNavigationBar: Container(
           decoration: BoxDecoration(

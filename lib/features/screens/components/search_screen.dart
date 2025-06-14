@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:job_finder_app/features/utils/themes/light_mode.dart';
 
 class SearchScreen extends StatelessWidget {
-  final recentSearches = ["Product Manager", "UX Designer", "Product Designer"];
+  final recentSearches = ["App Developer", "UX Designer", "Product Designer"];
 
   SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CallColors.defaultColor,
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Padding(
@@ -106,8 +108,8 @@ class SearchScreen extends StatelessWidget {
                     backgroundColor: Colors.redAccent,
                     child: Icon(Icons.music_note, color: Colors.white),
                   ),
-                  title: Text("Product Manager"),
-                  subtitle: Text("Beats\nFlorida, US"),
+                  title: Text("App Developer"),
+                  subtitle: Text("Beats\nPhnom Penh, Cambodia"),
                   trailing: Text("\$84,000/y"),
                   isThreeLine: true,
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:job_finder_app/features/screens/components/search_screen.dart';
 import 'package:job_finder_app/features/utils/constants/images.dart';
+import 'package:job_finder_app/features/utils/themes/light_mode.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -55,7 +56,7 @@ class HomeScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: CallColors.defaultColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
