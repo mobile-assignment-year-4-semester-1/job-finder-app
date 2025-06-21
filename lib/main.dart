@@ -3,6 +3,8 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:job_finder_app/features/screens/pages/splash_screen.dart';
 import 'package:job_finder_app/widgets/theme_provider.dart';
 import 'package:provider/provider.dart';
+
+import 'features/screens/auth/sign_up.dart';
 Future<void> main() async {
   runApp(
     ChangeNotifierProvider(
@@ -33,7 +35,7 @@ class JobFinder extends StatelessWidget {
           ),
           themeMode:
               themeProvider.isDarkMode ? ThemeMode.light : ThemeMode.dark,
-          home: const SplashScreen(),
+          home: const SignUp(),
         );
       },
     );
