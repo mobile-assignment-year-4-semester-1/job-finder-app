@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import '../../utils/constants/icons.dart';
 import '../../utils/themes/light_mode.dart';
+import '../routes/app_route.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({ super.key });
@@ -352,7 +353,7 @@ class _SignUpState extends State<SignUp> {
     return  Center(
       child: GestureDetector(
         onTap: () {
-          // Navigate to Login
+          Navigator.of(context).pushNamed(AppRoute.signinScreen);
         },
         child: RichText(
           text: TextSpan(
