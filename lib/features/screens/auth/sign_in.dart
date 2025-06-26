@@ -1,5 +1,6 @@
-import 'package:flutter/gestures.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 
 import '../../utils/constants/icons.dart';
 import '../../utils/themes/light_mode.dart';
