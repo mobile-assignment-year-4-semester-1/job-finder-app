@@ -21,19 +21,19 @@ class SeriesOfSlide extends StatelessWidget {
             onPageChanged: controller.updatePageIndicator,
             children: const [
               OnBoardingPage(
-                image: CallImages.onBoardingImage1,
+                image: CallImages.job1,
                 title: "Search your job",
                 description:
                     "Figure out your top five priorities whether it is company culture, salary.",
               ),
               OnBoardingPage(
-                image: CallImages.onBoardingImage2,
+                image: CallImages.onBoardingImage1,
                 title: "Browse the perfect job",
                 description:
                     "Our job list includes several industries, so you can find the best job for you.",
               ),
               OnBoardingPage(
-                image: CallImages.onBoardingImage3,
+                image: CallImages.job2,
                 title: "Apply to best jobs",
                 description:
                     "You can apply to your desirable jobs very quickly and easily with ease.",
@@ -55,7 +55,7 @@ class SeriesOfSlide extends StatelessWidget {
 
           // Dot Indicators
           Positioned(
-            bottom: 100,
+            bottom: 110,
             left: 0,
             right: 0,
             child: Obx(
@@ -83,7 +83,7 @@ class SeriesOfSlide extends StatelessWidget {
 
           // Bottom Navigation
           Positioned(
-            bottom: 40,
+            bottom: 60,
             left: 20,
             right: 20,
             child: Row(
@@ -142,7 +142,7 @@ class OnBoardingPage extends StatelessWidget {
         children: [
           // Circular Image with Background
           Container(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(50),
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: Color(0xFFFFC940), // yellow-orange background

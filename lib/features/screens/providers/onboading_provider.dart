@@ -11,7 +11,7 @@ class OnBoardingProvider extends GetxController {
   }
 
   void nextPage() {
-    if (currentPageIndex.value < 2) {
+    if (currentPageIndex.value < 4) {
       pageController.animateToPage(
         currentPageIndex.value + 1,
         duration: const Duration(milliseconds: 300),

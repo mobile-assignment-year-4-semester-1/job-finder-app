@@ -7,6 +7,8 @@ class CallImages {
   // -- Images
   static const String imageAdric = "assets/images/image_adric.png";
   static const String imageWork = "assets/images/image_work.png";
+  static const String job1 = "assets/images/job1.png";
+  static const String job2 = "assets/images/job2.png";
 
   static const String onBoardingImage =
       "assets/slideshow/Onboading.png";
