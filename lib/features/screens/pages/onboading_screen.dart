@@ -15,11 +15,11 @@ class OnboardingScreen extends StatelessWidget {
         children: [
           Expanded(
             child:
-                Image.asset(CallImages.onBoardingImage1, height: 50)
+                Image.asset(CallImages.job2, height: 80)
                 // Image.asset(CallImages.onBoardingImage1, fit: BoxFit.cover),
           ),
           Padding(
-            padding: const EdgeInsets.all(33.0),
+            padding: const EdgeInsets.only(left: 20, right: 20,bottom: 130),
             child: Column(
               children: [
                 const Text(

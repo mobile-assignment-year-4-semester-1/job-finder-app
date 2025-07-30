@@ -5,6 +5,7 @@ import 'package:job_finder_app/widgets/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'features/screens/auth/sign_in.dart';
+import 'features/screens/pages/onboading_screen.dart';
 import 'features/screens/routes/app_route.dart';
 Future<void> main() async {
   runApp(
@@ -37,7 +38,7 @@ class JobFinder extends StatelessWidget {
           ),
           themeMode:
               themeProvider.isDarkMode ? ThemeMode.light : ThemeMode.dark,
-          home: const SignIn(),
+          home: const OnboardingScreen(),
           onGenerateRoute: AppRoute.onGenerateRoute,
         );
       },
