@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:job_finder_app/features/utils/constants/app.colors.dart';
-=======
 import 'package:job_finder_app/features/utils/themes/light_mode.dart';
->>>>>>> 5904a785ff84214f29eadaaa93db9d76500db344
+import 'package:job_finder_app/features/utils/themes/light_mode.dart';
 
 class SavedScrean extends StatelessWidget {
   const SavedScrean({super.key});
@@ -11,11 +9,8 @@ class SavedScrean extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< HEAD
       backgroundColor: AppColors.background,
-=======
       backgroundColor: CallColors.defaultColor,
->>>>>>> 5904a785ff84214f29eadaaa93db9d76500db344
       body: Center(
         child: Text(
           'Saved Your Favorite Job',
