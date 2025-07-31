@@ -1,22 +1,22 @@
-
 import 'package:flutter/material.dart';
+import 'package:job_finder_app/features/screens/pages/default_screen.dart';
 import '../../utils/constants/icons.dart';
 import '../../utils/themes/light_mode.dart';
 import '../routes/app_route.dart';
 
 class SignUp extends StatefulWidget {
-  const SignUp({ super.key });
+  const SignUp({super.key});
 
   @override
   _SignUpState createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
-
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
@@ -28,18 +28,12 @@ class _SignUpState extends State<SignUp> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              margin: EdgeInsets.only(left: 10),
-              child: IconButton(
-                icon: Image.asset(CallIcons.iconBack, color: Colors.black),
-                onPressed: () {
-
-                },
-              ),
-            ),
             SizedBox(height: 5),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24.0,
+                vertical: 16,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -63,10 +57,7 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(height: 8),
                   Text(
                     "Let's Register. Apply to jobs!",
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
                   ),
                   SizedBox(height: 35),
 
@@ -104,15 +95,11 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-
   Widget get _fullNameField {
     return TextFormField(
       controller: _fullNameController,
       textCapitalization: TextCapitalization.words,
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 16,
-      ),
+      style: TextStyle(color: Colors.black, fontSize: 16),
       cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: "Full Name",
@@ -131,9 +118,7 @@ class _SignUpState extends State<SignUp> {
           borderSide: BorderSide(color: Colors.green, width: 2),
           borderRadius: BorderRadius.circular(12),
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
       validator: (value) {
         if (value == null || value.trim().isEmpty) {
@@ -148,10 +133,7 @@ class _SignUpState extends State<SignUp> {
     return TextFormField(
       controller: _emailController,
       keyboardType: TextInputType.emailAddress,
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 16,
-      ),
+      style: TextStyle(color: Colors.black, fontSize: 16),
       cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: "Email Address",
@@ -170,9 +152,7 @@ class _SignUpState extends State<SignUp> {
           borderSide: BorderSide(color: Colors.green, width: 2),
           borderRadius: BorderRadius.circular(12),
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
       validator: (value) {
         if (value == null || value.trim().isEmpty) {
@@ -192,10 +172,7 @@ class _SignUpState extends State<SignUp> {
     return TextFormField(
       controller: _passwordController,
       obscureText: _obscurePassword,
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 16,
-      ),
+      style: TextStyle(color: Colors.black, fontSize: 16),
       cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: "Password",
@@ -225,9 +202,7 @@ class _SignUpState extends State<SignUp> {
           borderSide: BorderSide(color: Colors.green, width: 2),
           borderRadius: BorderRadius.circular(12),
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -245,10 +220,7 @@ class _SignUpState extends State<SignUp> {
     return TextFormField(
       controller: _confirmPasswordController,
       obscureText: _obscureConfirmPassword,
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 16,
-      ),
+      style: TextStyle(color: Colors.black, fontSize: 16),
       cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: "Confirm Password",
@@ -278,9 +250,7 @@ class _SignUpState extends State<SignUp> {
           borderSide: BorderSide(color: Colors.green, width: 2),
           borderRadius: BorderRadius.circular(12),
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -306,7 +276,10 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
         onPressed: () {
-          // Handle registration
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => DefaultScreen()),
+          );
         },
         child: const Text(
           "Register",
@@ -320,37 +293,24 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  Widget get _OrContinueWith{
-     return Row(
-       children: [
-         Expanded(
-           child: Divider(
-             color: Colors.grey,
-             thickness: 1,
-           ),
-         ),
-         Padding(
-           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-           child: Text(
-             'Or continue with',
-             style: TextStyle(
-               color: Colors.grey,
-               fontSize: 14,
-             ),
-           ),
-         ),
-         Expanded(
-           child: Divider(
-             color: Colors.grey,
-             thickness: 1,
-           ),
-         ),
-       ],
-     );
+  Widget get _OrContinueWith {
+    return Row(
+      children: [
+        Expanded(child: Divider(color: Colors.grey, thickness: 1)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Text(
+            'Or continue with',
+            style: TextStyle(color: Colors.grey, fontSize: 14),
+          ),
+        ),
+        Expanded(child: Divider(color: Colors.grey, thickness: 1)),
+      ],
+    );
   }
 
-  Widget get _LoginPrompt{
-    return  Center(
+  Widget get _LoginPrompt {
+    return Center(
       child: GestureDetector(
         onTap: () {
           Navigator.of(context).pushNamed(AppRoute.signinScreen);
@@ -358,7 +318,7 @@ class _SignUpState extends State<SignUp> {
         child: RichText(
           text: TextSpan(
             text: 'Have an account? ',
-            style: TextStyle(color: Colors.grey[700],fontSize: 15,),
+            style: TextStyle(color: Colors.grey[700], fontSize: 15),
             children: [
               TextSpan(
                 text: 'Log in',
@@ -375,17 +335,11 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-
   Widget _socialIcon(String assetPath) {
     return CircleAvatar(
       radius: 30,
       backgroundColor: Colors.grey[200],
-      child: Image.asset(
-        assetPath,
-        width: 35,
-        height: 35,
-        fit: BoxFit.contain,
-      ),
+      child: Image.asset(assetPath, width: 35, height: 35, fit: BoxFit.contain),
     );
   }
 }

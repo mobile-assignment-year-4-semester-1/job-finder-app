@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+import 'package:job_finder_app/features/utils/constants/app.colors.dart';
+=======
+import 'package:job_finder_app/features/utils/themes/light_mode.dart';
+>>>>>>> 5904a785ff84214f29eadaaa93db9d76500db344
 
 class SearchScreen extends StatelessWidget {
-  final recentSearches = ["Product Manager", "UX Designer", "Product Designer"];
+  final recentSearches = ["App Developer", "UX Designer", "Product Designer"];
 
   SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
+      backgroundColor: AppColors.defaultColor,
+=======
+      backgroundColor: CallColors.defaultColor,
+>>>>>>> 5904a785ff84214f29eadaaa93db9d76500db344
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Padding(
@@ -66,7 +76,7 @@ class SearchScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Icon(Icons.tune),
-                  )
+                  ),
                 ],
               ),
 
@@ -79,12 +89,14 @@ class SearchScreen extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-              ...recentSearches.map((item) => ListTile(
-                    leading: Icon(Icons.history),
-                    title: Text(item),
-                    trailing: Icon(Icons.close),
-                    contentPadding: EdgeInsets.zero,
-                  )),
+              ...recentSearches.map(
+                (item) => ListTile(
+                  leading: Icon(Icons.history),
+                  title: Text(item),
+                  trailing: Icon(Icons.close),
+                  contentPadding: EdgeInsets.zero,
+                ),
+              ),
 
               SizedBox(height: 10),
               Align(
@@ -106,8 +118,8 @@ class SearchScreen extends StatelessWidget {
                     backgroundColor: Colors.redAccent,
                     child: Icon(Icons.music_note, color: Colors.white),
                   ),
-                  title: Text("Product Manager"),
-                  subtitle: Text("Beats\nFlorida, US"),
+                  title: Text("App Developer"),
+                  subtitle: Text("Beats\nPhnom Penh, Cambodia"),
                   trailing: Text("\$84,000/y"),
                   isThreeLine: true,
                 ),

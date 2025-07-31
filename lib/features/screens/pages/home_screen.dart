@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:job_finder_app/features/screens/components/search_screen.dart';
 import 'package:job_finder_app/features/utils/constants/images.dart';
+import 'package:job_finder_app/features/utils/themes/light_mode.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -55,7 +56,7 @@ class HomeScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: CallColors.defaultColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -115,9 +116,6 @@ class HomeScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(builder: (_) => SearchScreen()),
                     );
-                    // AppRoute.key.currentState!.pushReplacementNamed(
-                    //   AppRoute.searchScreen, // You can change this to anything needed
-                    // );
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -186,7 +184,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 16),
-                ...popularJobs.map((job) => PopularJobTile(job: job)).toList(),
+                ...popularJobs.map((job) => PopularJobTile(job: job)),
                 const SizedBox(height: 24),
               ],
             ),

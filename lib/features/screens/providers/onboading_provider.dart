@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:job_finder_app/features/screens/auth/sign_in.dart';
 import 'package:job_finder_app/features/screens/pages/default_screen.dart';
 
 class OnBoardingProvider extends GetxController {
@@ -18,13 +19,16 @@ class OnBoardingProvider extends GetxController {
         curve: Curves.easeInOut,
       );
     } else {
-      Get.offAll(() => DefaultScreen());
+      // Get.offAll(() => DefaultScreen());
+      Get.offAll(() => SignIn());
     }
   }
 
-  void skipPage() {
-    Get.offAll(() => DefaultScreen());
-  }
+  // void skipPage() {
+  //   // Get.offAll(() => DefaultScreen());
+  //   Get.offAll(() => SignIn());
+  // }
+  void skipPage() => Get.offAll(() => SignIn());
 
   @override
   void onClose() {

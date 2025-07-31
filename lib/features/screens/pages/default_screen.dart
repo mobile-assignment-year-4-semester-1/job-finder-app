@@ -4,6 +4,7 @@ import 'package:job_finder_app/features/screens/pages/saved_screan.dart';
 import 'package:job_finder_app/features/screens/pages/notification.dart';
 import 'package:job_finder_app/features/utils/constants/app.colors.dart';
 import 'package:job_finder_app/features/screens/pages/home_screen.dart';
+import 'package:job_finder_app/features/utils/themes/light_mode.dart';
 
 class DefaultScreen extends StatefulWidget {
   const DefaultScreen({super.key});
@@ -36,7 +37,7 @@ class _DefaultScreenState extends State<DefaultScreen> {
       initialRoute: '/',
       routes: {},
       home: Scaffold(
-        backgroundColor: AppColors.background,
+        backgroundColor: CallColors.defaultColor,
         body: _screens[_selectedIndex],
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
@@ -46,15 +47,17 @@ class _DefaultScreenState extends State<DefaultScreen> {
                 color: Colors.black.withOpacity(0.1),
                 blurRadius: 3,
                 spreadRadius: 0.1,
-                offset: const Offset(0, -1), // Moves shadow upward
+                offset: const Offset(0, -1),
               ),
             ],
             borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           ),
           child: BottomNavigationBar(
+            backgroundColor: AppColors.bottomBarBackground,
             currentIndex: _selectedIndex,
             selectedItemColor: Colors.green,
             unselectedItemColor: Colors.grey,
+            type: BottomNavigationBarType.fixed,
             onTap: _onItemTapped,
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),

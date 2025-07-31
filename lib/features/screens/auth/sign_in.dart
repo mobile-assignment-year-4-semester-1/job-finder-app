@@ -1,20 +1,21 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:job_finder_app/features/screens/pages/default_screen.dart';
 
 import '../../utils/constants/icons.dart';
 import '../../utils/themes/light_mode.dart';
 import '../routes/app_route.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({ super.key });
+  const SignIn({super.key});
 
   @override
   _SignInState createState() => _SignInState();
 }
 
-class _SignInState extends State<SignIn> {
+bool showBack = false;
 
+class _SignInState extends State<SignIn> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _obscurePassword = true;
@@ -27,18 +28,22 @@ class _SignInState extends State<SignIn> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              margin: EdgeInsets.only(left: 10),
-              child: IconButton(
-                icon: Image.asset(CallIcons.iconBack, color: Colors.black),
-                onPressed: () {
-
-                },
+            if (showBack)
+              Container(
+                margin: EdgeInsets.only(left: 10),
+                child: IconButton(
+                  icon: Image.asset(CallIcons.iconBack, color: Colors.black),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
               ),
-            ),
             SizedBox(height: 5),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24.0,
+                vertical: 16,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -62,10 +67,7 @@ class _SignInState extends State<SignIn> {
                   SizedBox(height: 12),
                   Text(
                     "Let's Login. Apply to jobs!",
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
                   ),
                   SizedBox(height: 60),
                   _emailField,
@@ -100,15 +102,11 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-
   Widget get _emailField {
     return TextFormField(
       controller: _emailController,
       keyboardType: TextInputType.emailAddress,
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 16,
-      ),
+      style: TextStyle(color: Colors.black, fontSize: 16),
       cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: "Email Address",
@@ -127,9 +125,7 @@ class _SignInState extends State<SignIn> {
           borderSide: BorderSide(color: Colors.green, width: 2),
           borderRadius: BorderRadius.circular(12),
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
       validator: (value) {
         if (value == null || value.trim().isEmpty) {
@@ -149,10 +145,7 @@ class _SignInState extends State<SignIn> {
     return TextFormField(
       controller: _passwordController,
       obscureText: _obscurePassword,
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 16,
-      ),
+      style: TextStyle(color: Colors.black, fontSize: 16),
       cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: "Password",
@@ -182,9 +175,7 @@ class _SignInState extends State<SignIn> {
           borderSide: BorderSide(color: Colors.green, width: 2),
           borderRadius: BorderRadius.circular(12),
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -210,7 +201,10 @@ class _SignInState extends State<SignIn> {
           ),
         ),
         onPressed: () {
-          // Handle registration
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => DefaultScreen()),
+          );
         },
         child: const Text(
           "Login",
@@ -224,44 +218,34 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-  Widget get _forgotPassword{
+  Widget get _forgotPassword {
     return Center(
       child: TextButton(
-          onPressed: () {
-          },
-          child: Text(
-              "Forgot Password?",
-              style: TextStyle(color: Colors.green,
-                fontWeight: FontWeight.bold,
-                fontSize: 16))),
+        onPressed: () {},
+        child: Text(
+          "Forgot Password?",
+          style: TextStyle(
+            color: Colors.green,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+      ),
     );
   }
 
-  Widget get _orContinueWith{
+  Widget get _orContinueWith {
     return Row(
       children: [
-        Expanded(
-          child: Divider(
-            color: Colors.grey,
-            thickness: 1,
-          ),
-        ),
+        Expanded(child: Divider(color: Colors.grey, thickness: 1)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Text(
             'Or continue with',
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 14,
-            ),
+            style: TextStyle(color: Colors.grey, fontSize: 14),
           ),
         ),
-        Expanded(
-          child: Divider(
-            color: Colors.grey,
-            thickness: 1,
-          ),
-        ),
+        Expanded(child: Divider(color: Colors.grey, thickness: 1)),
       ],
     );
   }
@@ -277,7 +261,6 @@ class _SignInState extends State<SignIn> {
           ),
           TextButton(
             onPressed: () {
-
               Navigator.of(context).pushNamed(AppRoute.signupScreen);
             },
             style: TextButton.styleFrom(
@@ -331,17 +314,11 @@ class _SignInState extends State<SignIn> {
   //   );
   // }
 
-
   Widget _socialIcon(String assetPath) {
     return CircleAvatar(
       radius: 30,
       backgroundColor: Colors.grey[200],
-      child: Image.asset(
-        assetPath,
-        width: 35,
-        height: 35,
-        fit: BoxFit.contain,
-      ),
+      child: Image.asset(assetPath, width: 35, height: 35, fit: BoxFit.contain),
     );
   }
 }
