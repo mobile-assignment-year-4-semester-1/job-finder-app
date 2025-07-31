@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:job_finder_app/features/screens/pages/default_screen.dart';
 import 'package:job_finder_app/features/utils/constants/app.colors.dart';
 import 'package:job_finder_app/features/utils/themes/light_mode.dart';
-import 'package:job_finder_app/features/utils/themes/light_mode.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,15 +13,6 @@ class NotificationScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        // leading: IconButton(
-        //   icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-        //   onPressed: () {
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(builder: (_) => DefaultScreen()),
-        //     );
-        //   },
-        // ),
         title: const Text(
           "Notifications",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -86,12 +77,6 @@ class NotificationScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
           ],
-
-      backgroundColor: CallColors.defaultColor,
-      body: Center(
-        child: Text(
-          'Notification Page',
-          style: TextStyle(color: Colors.green, fontSize: 28),
         ),
       ),
     );
