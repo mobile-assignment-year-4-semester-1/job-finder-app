@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:job_finder_app/features/utils/constants/app.colors.dart';
 import 'package:job_finder_app/features/utils/themes/light_mode.dart';
-import 'package:job_finder_app/features/utils/themes/light_mode.dart';
 
 class MessageScreen extends StatelessWidget {
   const MessageScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,11 +18,11 @@ class MessageScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.search, color: Colors.green),
+            icon: const Icon(Icons.search, color: Colors.green),
             onPressed: () {},
           ),
           IconButton(
-            icon: Icon(Icons.edit, color: Colors.green),
+            icon: const Icon(Icons.edit, color: Colors.green),
             onPressed: () {},
           ),
         ],
@@ -35,7 +35,7 @@ class MessageScreen extends StatelessWidget {
             TextField(
               decoration: InputDecoration(
                 hintText: 'Search a chat or message',
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 filled: true,
                 fillColor: Colors.grey[200],
                 border: OutlineInputBorder(
@@ -106,13 +106,6 @@ class MessageScreen extends StatelessWidget {
               0,
             ),
           ],
-        ),
-      ),
-      backgroundColor: CallColors.defaultColor,
-      body: Center(
-        child: Text(
-          'Message Page',
-          style: TextStyle(color: Colors.green, fontSize: 28),
         ),
       ),
     );
