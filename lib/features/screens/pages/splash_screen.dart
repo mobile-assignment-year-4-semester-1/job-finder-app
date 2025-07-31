@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:job_finder_app/features/screens/pages/onboading_screen.dart';
+import 'package:job_finder_app/features/utils/themes/light_mode.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -42,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: CallColors.defaultColor,
       body: Center(
         child: Text(
           displayText,
