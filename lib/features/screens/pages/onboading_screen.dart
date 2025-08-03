@@ -14,40 +14,42 @@ class OnboardingScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child:
-                Image.asset(CallImages.job2, height: 80)
-                // Image.asset(CallImages.onBoardingImage1, fit: BoxFit.cover),
+            child: Image.asset(CallImages.job2, height: 80),
+            // Image.asset(CallImages.onBoardingImage1, fit: BoxFit.cover),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20,bottom: 130),
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 130),
             child: Column(
               children: [
                 const Text(
                   'Make your dream career with job Finder',
                   style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.text1),
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.text1,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 10),
                 const Padding(
                   padding: EdgeInsets.only(left: 30, right: 30, bottom: 30),
                   child: Text(
-                  'We help find your dream job according to your skillset, location & preference to build your career.',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                    'We help find your dream job according to your skillset, location & preference to build your career.',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:CallColors.buttonGreen,
+                    backgroundColor: CallColors.buttonGreen,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 12),
+                      horizontal: 40,
+                      vertical: 12,
+                    ),
                   ),
                   onPressed: () {
                     Navigator.push(
