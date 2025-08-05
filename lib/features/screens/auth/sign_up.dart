@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:job_finder_app/features/screens/pages/default_screen.dart';
+import 'package:job_finder_app/features/screens/auth/sign_in.dart';
 import '../../utils/constants/icons.dart';
 import '../../utils/themes/light_mode.dart';
 import '../routes/app_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -12,11 +14,15 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
@@ -25,18 +31,16 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24.0,
-                vertical: 16,
-              ),
+        child: SingleChildScrollView(
+          // Avoid overflow on small screens
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
+            child: Form(
+              key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 5),
                   Text(
                     'Jöbseek',
                     style: TextStyle(
@@ -69,7 +73,7 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(height: 16),
                   _confirmPasswordField,
                   SizedBox(height: 30),
-                  _RegisterButton,
+                  _registerButton, // ✅ Use lowercase for getter
                   SizedBox(height: 35),
                   _OrContinueWith,
                   SizedBox(height: 35),
@@ -89,7 +93,7 @@ class _SignUpState extends State<SignUp> {
                 ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -264,7 +268,7 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  Widget get _RegisterButton {
+  Widget get _registerButton {
     return SizedBox(
       width: double.infinity,
       height: 50,
@@ -276,10 +280,11 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => DefaultScreen()),
-          );
+          if (_formKey.currentState!.validate()) {
+            String email = _emailController.text;
+            String password = _passwordController.text;
+            _register(email, password);
+          }
         },
         child: const Text(
           "Register",
@@ -341,5 +346,28 @@ class _SignUpState extends State<SignUp> {
       backgroundColor: Colors.grey[200],
       child: Image.asset(assetPath, width: 35, height: 35, fit: BoxFit.contain),
     );
+  }
+
+  Future<void> _register(String email, String password) async {
+    try {
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((UserCredential user) {
+            print("UserCredential : $user");
+            // Navigation to LoginScreen
+            Get.to(SignIn());
+          })
+          .catchError((error) {
+            print("catchError : $error");
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text("$error")));
+          });
+    } catch (error) {
+      print("catch : $error");
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("$error")));
+    }
   }
 }

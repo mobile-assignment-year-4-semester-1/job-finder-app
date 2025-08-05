@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:job_finder_app/features/screens/pages/splash_screen.dart';
 import 'package:job_finder_app/widgets/theme_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 
 import 'features/screens/auth/sign_in.dart';
@@ -9,6 +12,17 @@ import 'features/screens/pages/onboading_screen.dart';
 import 'features/screens/routes/app_route.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    FirebaseAuth.instance.setLanguageCode('en');
+  } catch (e) {
+    // You can log or handle initialization error here
+    print('Firebase initialization error: $e');
+  }
+
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeProvider(),

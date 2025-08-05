@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'job-finder-app-b925d.firebasestorage.app',
     measurementId: 'G-H9G48ET0PZ',
   );
+
 }

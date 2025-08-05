@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:job_finder_app/features/screens/components/search_screen.dart';
 import 'package:job_finder_app/features/utils/constants/images.dart';
 import 'package:job_finder_app/features/utils/themes/light_mode.dart';
+import 'package:job_finder_app/features/screens/auth/sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -85,25 +88,63 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Stack(
-                      children: [
-                        CircleAvatar(
-                          backgroundColor: Colors.purple,
-                          radius: 24,
-                          child: Image.asset(
-                            CallImages.onBoardingImage1,
-                            height: 24,
+                    PopupMenuButton<int>(
+                      offset: const Offset(0, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      onSelected: (value) {
+                        if (value == 1) {
+                          // Logout logic
+                          FirebaseAuth.instance.signOut();
+                          Get.offAll(SignIn()); //
+                        }
+                      },
+                      itemBuilder:
+                          (context) => [
+                            PopupMenuItem<int>(
+                              value: 0,
+                              enabled: false,
+                              child: Text(
+                                FirebaseAuth.instance.currentUser?.email ??
+                                    'User',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            const PopupMenuDivider(),
+                            const PopupMenuItem<int>(
+                              value: 1,
+                              child: Row(
+                                children: [
+                                  Icon(Icons.logout, color: Colors.red),
+                                  SizedBox(width: 8),
+                                  Text("Logout"),
+                                ],
+                              ),
+                            ),
+                          ],
+                      child: Stack(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.purple,
+                            radius: 24,
+                            child: Image.asset(
+                              CallImages.onBoardingImage1,
+                              height: 24,
+                            ),
                           ),
-                        ),
-                        const Positioned(
-                          right: 0,
-                          top: 0,
-                          child: CircleAvatar(
-                            radius: 6,
-                            backgroundColor: Colors.red,
+                          const Positioned(
+                            right: 0,
+                            top: 0,
+                            child: CircleAvatar(
+                              radius: 6,
+                              backgroundColor: Colors.red,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),

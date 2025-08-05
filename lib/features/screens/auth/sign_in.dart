@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:job_finder_app/features/screens/pages/default_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 
 import '../../utils/constants/icons.dart';
 import '../../utils/themes/light_mode.dart';
@@ -16,9 +18,12 @@ class SignIn extends StatefulWidget {
 bool showBack = false;
 
 class _SignInState extends State<SignIn> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _obscurePassword = true;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -44,56 +49,60 @@ class _SignInState extends State<SignIn> {
                 horizontal: 24.0,
                 vertical: 16,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Jöbseek',
-                    style: TextStyle(
-                      color: Colors.green,
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
+              child: Form(
+                // ✅ Wrap your Column in a Form
+                key: _formKey, // ✅ Attach the form key here
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Jöbseek',
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Welcome Back 👋',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                    SizedBox(height: 10),
+                    Text(
+                      'Welcome Back 👋',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 12),
-                  Text(
-                    "Let's Login. Apply to jobs!",
-                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                  ),
-                  SizedBox(height: 60),
-                  _emailField,
-                  SizedBox(height: 25),
-                  _passwordField,
-                  SizedBox(height: 40),
-                  _loginButton,
-                  SizedBox(height: 35),
-                  _forgotPassword,
-                  SizedBox(height: 35),
-                  _orContinueWith,
-                  SizedBox(height: 35),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _socialIcon(CallIcons.apple),
-                      SizedBox(width: 24),
-                      _socialIcon(CallIcons.google),
-                      SizedBox(width: 24),
-                      _socialIcon(CallIcons.facebook),
-                    ],
-                  ),
-                  SizedBox(height: 80),
-                  _loginPrompt(context),
-                  SizedBox(height: 16),
-                ],
+                    SizedBox(height: 12),
+                    Text(
+                      "Let's Login. Apply to jobs!",
+                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                    ),
+                    SizedBox(height: 60),
+                    _emailField,
+                    SizedBox(height: 25),
+                    _passwordField,
+                    SizedBox(height: 40),
+                    _loginButton,
+                    SizedBox(height: 35),
+                    _forgotPassword,
+                    SizedBox(height: 35),
+                    _orContinueWith,
+                    SizedBox(height: 35),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _socialIcon(CallIcons.apple),
+                        SizedBox(width: 24),
+                        _socialIcon(CallIcons.google),
+                        SizedBox(width: 24),
+                        _socialIcon(CallIcons.facebook),
+                      ],
+                    ),
+                    SizedBox(height: 80),
+                    _loginPrompt(context),
+                    SizedBox(height: 16),
+                  ],
+                ),
               ),
             ),
           ],
@@ -201,10 +210,11 @@ class _SignInState extends State<SignIn> {
           ),
         ),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => DefaultScreen()),
-          );
+          if (_formKey.currentState!.validate()) {
+            final email = _emailController.text.trim();
+            final password = _passwordController.text.trim();
+            _signIn(email, password);
+          }
         },
         child: const Text(
           "Login",
@@ -282,43 +292,62 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-  // Widget _loginPrompt(BuildContext context) {
-  //   return Center(
-  //     child: Row(
-  //       mainAxisSize: MainAxisSize.min,
-  //       children: [
-  //         Text(
-  //           'Have an account? ',
-  //           style: TextStyle(color: Colors.grey[700], fontSize: 15),
-  //         ),
-  //         TextButton(
-  //           onPressed: () {
-  //             Navigator.of(context).pushReplacementNamed(AppRoute.signupScreen);
-  //           },
-  //           style: TextButton.styleFrom(
-  //             padding: EdgeInsets.zero,
-  //             minimumSize: Size(0, 0),
-  //             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-  //           ),
-  //           child: Text(
-  //             'Register',
-  //             style: TextStyle(
-  //               color: Colors.green,
-  //               fontSize: 16,
-  //               fontWeight: FontWeight.bold,
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   Widget _socialIcon(String assetPath) {
     return CircleAvatar(
       radius: 30,
       backgroundColor: Colors.grey[200],
       child: Image.asset(assetPath, width: 35, height: 35, fit: BoxFit.contain),
     );
+  }
+
+  Future<void> _signIn(String email, String password) async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      print("UserCredential: $userCredential");
+
+      // Navigate to the main screen on successful login
+      Get.off(DefaultScreen());
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+
+      switch (e.code) {
+        case 'invalid-email':
+          errorMessage = 'The email address is not valid.';
+          break;
+        case 'user-disabled':
+          errorMessage = 'This user has been disabled.';
+          break;
+        case 'user-not-found':
+          errorMessage = 'No user found with this email.';
+          break;
+        case 'wrong-password':
+          errorMessage = 'Incorrect password. Please try again.';
+          break;
+        default:
+          errorMessage = 'Login failed. Please try again.';
+      }
+
+      // Show a clean error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    } catch (e) {
+      // Handle any other errors (network issues, etc.)
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("An unexpected error occurred."),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
 }

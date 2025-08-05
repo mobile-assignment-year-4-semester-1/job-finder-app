@@ -1,3 +1,8 @@
+plugins {
+    // ✅ Remove version declaration to avoid conflict
+    // id("com.google.gms.google-services") version "4.4.3" apply false
+}
+
 allprojects {
     repositories {
         google()
@@ -5,17 +10,18 @@ allprojects {
     }
 }
 
-val newBuildDir: Directory = rootProject.layout.buildDirectory.dir("../../build").get()
-rootProject.layout.buildDirectory.value(newBuildDir)
+// Optional custom build dir logic
+val newBuildDir = layout.buildDirectory.dir("../../build").get()
+layout.buildDirectory.set(newBuildDir)
 
 subprojects {
-    val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
-    project.layout.buildDirectory.value(newSubprojectBuildDir)
+    val subprojectBuildDir = newBuildDir.dir(name)
+    layout.buildDirectory.set(subprojectBuildDir)
 }
-subprojects {
-    project.evaluationDependsOn(":app")
-}
+
+// Optional — remove if not needed
+// subprojects { evaluationDependsOn(":app") }
 
 tasks.register<Delete>("clean") {
-    delete(rootProject.layout.buildDirectory)
+    delete(layout.buildDirectory)
 }

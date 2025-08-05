@@ -4,7 +4,7 @@ class CallIcons {
   static const String apple = "assets/logos/apple-icon.png";
   static const String google = "assets/logos/google-icon.png";
   static const String iconBack = "assets/icons/icon_back.png";
-  static const String facebook = "assets/icons/facebook-icon.webp";
+  static const String facebook = "assets/logos/facebook-icon.webp";
 
   // -- Icons
   static const String iconPassword = "assets/icons/icon_password.png";
