@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:job_finder_app/features/screens/auth/sign_in.dart';
+import 'package:job_finder_app/features/utils/constants/app.colors.dart';
 import '../../utils/constants/icons.dart';
 import '../../utils/themes/light_mode.dart';
 import '../routes/app_route.dart';
@@ -354,20 +355,45 @@ class _SignUpState extends State<SignUp> {
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((UserCredential user) {
             print("UserCredential : $user");
-            // Navigation to LoginScreen
+
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  "Register Successsfully!",
+                  style: TextStyle(color: AppColors.textWhite, fontSize: 18),
+                  textAlign: TextAlign.center,
+                ),
+                duration: Duration(seconds: 2),
+                backgroundColor: AppColors.success,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(5)),
+                ),
+              ),
+            );
             Get.to(SignIn());
           })
           .catchError((error) {
-            print("catchError : $error");
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text("$error")));
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Center(
+                  child: Text(
+                    "Error: $error",
+                    style: TextStyle(color: AppColors.textWhite),
+                  ),
+                ),
+                behavior: SnackBarBehavior.floating,
+                duration: Duration(seconds: 2),
+                backgroundColor: AppColors.warning,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(5)),
+                ),
+              ),
+            );
           });
     } catch (error) {
-      print("catch : $error");
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text("$error")));
+      ).showSnackBar(SnackBar(content: Text("Error: $error")));
     }
   }
 }

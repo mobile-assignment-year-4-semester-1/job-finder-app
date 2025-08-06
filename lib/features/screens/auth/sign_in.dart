@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:job_finder_app/features/screens/pages/default_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:job_finder_app/features/utils/constants/app.colors.dart';
 
 import '../../utils/constants/icons.dart';
 import '../../utils/themes/light_mode.dart';
@@ -309,9 +310,25 @@ class _SignInState extends State<SignIn> {
 
       print("UserCredential: $userCredential");
 
-      // Navigate to the main screen on successful login
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Login Successully!",
+            style: TextStyle(color: AppColors.textWhite, fontSize: 18),
+            textAlign: TextAlign.center,
+          ),
+          duration: Duration(seconds: 2),
+          backgroundColor: AppColors.success,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(5)),
+          ),
+        ),
+      );
+
+      await Future.delayed(Duration(milliseconds: 800));
       Get.off(DefaultScreen());
     } on FirebaseAuthException catch (e) {
+      print('🔥 Caught FirebaseAuthException: ${e.code}');
       String errorMessage;
 
       switch (e.code) {
@@ -322,29 +339,40 @@ class _SignInState extends State<SignIn> {
           errorMessage = 'This user has been disabled.';
           break;
         case 'user-not-found':
-          errorMessage = 'No user found with this email.';
+          errorMessage = 'No account found with this email.';
           break;
         case 'wrong-password':
-          errorMessage = 'Incorrect password. Please try again.';
+          errorMessage = 'The password is incorrect. Please try again.';
           break;
         default:
           errorMessage = 'Login failed. Please try again.';
       }
 
-      // Show a clean error message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(errorMessage),
-          backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
+          content: Text(
+            "Error: $errorMessage",
+            style: TextStyle(color: AppColors.textWhite, fontSize: 18),
+            textAlign: TextAlign.center,
+          ),
+          duration: Duration(seconds: 2),
+          backgroundColor: AppColors.error,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(5)),
+          ),
         ),
       );
     } catch (e) {
-      // Handle any other errors (network issues, etc.)
+      print('❌ Caught unexpected error: $e');
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("An unexpected error occurred."),
-          backgroundColor: Colors.red,
+          content: Text(
+            "An unexpected error occurred.",
+            style: TextStyle(color: Colors.white),
+            textAlign: TextAlign.center,
+          ),
+          backgroundColor: AppColors.error,
           behavior: SnackBarBehavior.floating,
         ),
       );
