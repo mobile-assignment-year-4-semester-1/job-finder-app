@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:job_finder_app/features/screens/components/search_screen.dart';
+import 'package:job_finder_app/features/utils/constants/app.colors.dart';
 import 'package:job_finder_app/features/utils/constants/images.dart';
 import 'package:job_finder_app/features/utils/themes/light_mode.dart';
 import 'package:job_finder_app/features/screens/auth/sign_in.dart';
@@ -91,13 +92,13 @@ class HomeScreen extends StatelessWidget {
                     PopupMenuButton<int>(
                       offset: const Offset(0, 50),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(6),
                       ),
+                      color: AppColors.accent,
                       onSelected: (value) {
                         if (value == 1) {
-                          // Logout logic
                           FirebaseAuth.instance.signOut();
-                          Get.offAll(SignIn()); //
+                          Get.offAll(SignIn());
                         }
                       },
                       itemBuilder:
@@ -105,39 +106,53 @@ class HomeScreen extends StatelessWidget {
                             PopupMenuItem<int>(
                               value: 0,
                               enabled: false,
-                              child: Text(
-                                FirebaseAuth.instance.currentUser?.email ??
-                                    'User',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 4,
+                                ),
+                                child: Text(
+                                  (FirebaseAuth.instance.currentUser?.email ??
+                                          'User')
+                                      .split('@')
+                                      .first,
+                                  style: const TextStyle(
+                                    color: AppColors.textWhite,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                             ),
                             const PopupMenuDivider(),
-                            const PopupMenuItem<int>(
+                            PopupMenuItem<int>(
                               value: 1,
-                              child: Row(
-                                children: [
-                                  Icon(Icons.logout, color: Colors.red),
-                                  SizedBox(width: 8),
-                                  Text("Logout"),
-                                ],
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 4,
+                                ),
+                                child: const Row(
+                                  children: [
+                                    Icon(Icons.logout, color: AppColors.error),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      "Logout",
+                                      style: TextStyle(
+                                        color: AppColors.textWhite,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
                       child: Stack(
                         children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.purple,
-                            radius: 24,
-                            child: Image.asset(
-                              CallImages.onBoardingImage1,
-                              height: 24,
-                            ),
-                          ),
+                          Image.asset(CallImages.userProfile, height: 44),
                           const Positioned(
                             right: 0,
-                            top: 0,
+                            top: 1,
                             child: CircleAvatar(
                               radius: 6,
                               backgroundColor: Colors.red,

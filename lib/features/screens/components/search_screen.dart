@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:job_finder_app/features/utils/constants/app.colors.dart';
 import 'package:job_finder_app/features/utils/themes/light_mode.dart';
-import 'package:job_finder_app/features/utils/themes/light_mode.dart';
 
 class SearchScreen extends StatelessWidget {
   final recentSearches = ["App Developer", "UX Designer", "Product Designer"];

@@ -9,6 +9,7 @@ class CallImages {
   static const String imageWork = "assets/images/image_work.png";
   static const String job1 = "assets/images/job1.png";
   static const String job2 = "assets/images/job2.png";
+  static const String userProfile = "assets/images/user_profile.png";
 
   static const String onBoardingImage = "assets/slideshow/Onboading.png";
   static const String onBoardingImage1 =

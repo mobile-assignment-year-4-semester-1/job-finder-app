@@ -38,18 +38,6 @@ class SeriesOfSlide extends StatelessWidget {
                 description:
                     "You can apply to your desirable jobs very quickly and easily with ease.",
               ),
-              OnBoardingPage(
-                image: CallImages.onBoardingImage3,
-                title: "Make your career",
-                description:
-                    "We help you find your dream job based on your skillset, location, demand.",
-              ),
-              OnBoardingPage(
-                image: CallImages.onBoardingImage3,
-                title: "Get job invitations",
-                description:
-                    "We will invite you to interviews and offer jobs based on your profile.",
-              ),
             ],
           ),
 
@@ -62,17 +50,17 @@ class SeriesOfSlide extends StatelessWidget {
               () => Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
-                  5,
+                  3,
                   (index) => AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
                     margin: const EdgeInsets.symmetric(horizontal: 4),
-                    width:
-                        controller.currentPageIndex.value == index ? 20 : 8,
+                    width: controller.currentPageIndex.value == index ? 20 : 8,
                     height: 8,
                     decoration: BoxDecoration(
-                      color: controller.currentPageIndex.value == index
-                          ? AppColors.primary
-                          : Colors.grey[400],
+                      color:
+                          controller.currentPageIndex.value == index
+                              ? AppColors.primary
+                              : Colors.grey[400],
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
@@ -101,7 +89,9 @@ class SeriesOfSlide extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: CallColors.buttonGreen,
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 12),
+                      horizontal: 24,
+                      vertical: 12,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -167,10 +157,7 @@ class OnBoardingPage extends StatelessWidget {
           Text(
             description,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey[600],
-            ),
+            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
           ),
         ],
       ),
