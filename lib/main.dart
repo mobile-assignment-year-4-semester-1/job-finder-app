@@ -19,7 +19,6 @@ Future<void> main() async {
     );
     FirebaseAuth.instance.setLanguageCode('en');
   } catch (e) {
-    // You can log or handle initialization error here
     print('Firebase initialization error: $e');
   }
 
@@ -41,18 +40,42 @@ class JobFinder extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           navigatorKey: AppRoute.key,
+
+          // Light Theme
           theme: ThemeData(
             primaryColor: const Color(0xFF2F4B4E),
             fontFamily: 'Roboto',
             brightness: Brightness.light,
+            scaffoldBackgroundColor: Colors.white,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.black,
+            ),
+            textTheme: const TextTheme(
+              bodyMedium: TextStyle(color: Colors.black87),
+            ),
           ),
+
+          // Dark Theme
           darkTheme: ThemeData(
             primaryColor: const Color(0xFF1A2A2D),
             fontFamily: 'Roboto',
             brightness: Brightness.dark,
+            scaffoldBackgroundColor: Colors.black,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.black,
+              foregroundColor: Colors.white,
+            ),
+            textTheme: const TextTheme(
+              bodyMedium: TextStyle(color: Colors.white70),
+            ),
           ),
+
+          // Switches automatically when toggled
           themeMode:
-              themeProvider.isDarkMode ? ThemeMode.light : ThemeMode.dark,
+              themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+
+          // Home Screen
           home: const OnboardingScreen(),
           onGenerateRoute: AppRoute.onGenerateRoute,
         );

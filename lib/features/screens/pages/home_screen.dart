@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:job_finder_app/features/screens/components/search_screen.dart';
-import 'package:job_finder_app/features/utils/constants/app.colors.dart';
-import 'package:job_finder_app/features/utils/constants/images.dart';
-import 'package:job_finder_app/features/utils/themes/light_mode.dart';
-import 'package:job_finder_app/features/screens/auth/sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:job_finder_app/features/screens/pages/profile_account.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     final featuredJobs = [
       {
         'company': 'Facebook',
@@ -38,7 +37,7 @@ class HomeScreen extends StatelessWidget {
         'salary': '\$180,000/year',
         'type': ['Window', 'Mac', 'linux'],
         'logo': Icons.palette,
-        'bgColor': Color(0xFF6281a7),
+        'bgColor': const Color(0xFF6281a7),
       },
     ];
 
@@ -60,7 +59,7 @@ class HomeScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: CallColors.defaultColor,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -74,97 +73,28 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           "Welcome to Job-Finder!",
-                          style: TextStyle(color: Colors.grey),
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.onBackground.withOpacity(
+                              0.6,
+                            ),
+                          ),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
                           "Discover Jobs 🔥",
-                          style: TextStyle(
-                            fontSize: 24,
+                          style: theme.textTheme.headlineSmall?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
                     ),
-                    PopupMenuButton<int>(
-                      offset: const Offset(0, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      color: AppColors.accent,
-                      onSelected: (value) {
-                        if (value == 1) {
-                          FirebaseAuth.instance.signOut();
-                          Get.offAll(SignIn());
-                        }
-                      },
-                      itemBuilder:
-                          (context) => [
-                            PopupMenuItem<int>(
-                              value: 0,
-                              enabled: false,
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 4,
-                                ),
-                                child: Text(
-                                  (FirebaseAuth.instance.currentUser?.email ??
-                                          'User')
-                                      .split('@')
-                                      .first,
-                                  style: const TextStyle(
-                                    color: AppColors.textWhite,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                            const PopupMenuDivider(),
-                            PopupMenuItem<int>(
-                              value: 1,
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 4,
-                                ),
-                                child: const Row(
-                                  children: [
-                                    Icon(Icons.logout, color: AppColors.error),
-                                    SizedBox(width: 8),
-                                    Text(
-                                      "Logout",
-                                      style: TextStyle(
-                                        color: AppColors.textWhite,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                      child: Stack(
-                        children: [
-                          Image.asset(CallImages.userProfile, height: 44),
-                          const Positioned(
-                            right: 0,
-                            top: 1,
-                            child: CircleAvatar(
-                              radius: 6,
-                              backgroundColor: Colors.red,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    const ProfileMenuPopup(),
                   ],
                 ),
                 const SizedBox(height: 24),
-
                 // Search bar
                 GestureDetector(
                   onTap: () {
@@ -175,7 +105,7 @@ class HomeScreen extends StatelessWidget {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey[100],
+                      color: theme.cardColor,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     padding: const EdgeInsets.symmetric(
@@ -183,32 +113,39 @@ class HomeScreen extends StatelessWidget {
                       vertical: 14,
                     ),
                     child: Row(
-                      children: const [
-                        Icon(Icons.search, color: Colors.grey),
-                        SizedBox(width: 8),
+                      children: [
+                        Icon(
+                          Icons.search,
+                          color: theme.iconTheme.color?.withOpacity(0.6),
+                        ),
+                        const SizedBox(width: 8),
                         Text(
                           "Search a job or position",
-                          style: TextStyle(color: Colors.grey, fontSize: 16),
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onSurface.withOpacity(0.6),
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 24),
-
                 // Featured Jobs
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text(
                       "Featured Jobs",
-                      style: TextStyle(
-                        fontSize: 18,
+                      style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text("See all", style: TextStyle(color: Colors.blueAccent)),
+                    Text(
+                      "See all",
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -224,23 +161,28 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 24),
-
                 // Popular Jobs
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text(
                       "Popular Jobs",
-                      style: TextStyle(
-                        fontSize: 18,
+                      style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text("See all", style: TextStyle(color: Colors.blueAccent)),
+                    Text(
+                      "See all",
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 16),
-                ...popularJobs.map((job) => PopularJobTile(job: job)),
+                ...popularJobs.map(
+                  (job) => PopularJobTile(job: job, theme: theme),
+                ),
                 const SizedBox(height: 24),
               ],
             ),
@@ -289,7 +231,7 @@ class FeaturedJobCard extends StatelessWidget {
               (i) => Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(45, 255, 255, 255),
+                  color: Colors.white.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
@@ -323,7 +265,8 @@ class FeaturedJobCard extends StatelessWidget {
 // Popular Job Tile Widget
 class PopularJobTile extends StatelessWidget {
   final Map job;
-  const PopularJobTile({super.key, required this.job});
+  final ThemeData theme;
+  const PopularJobTile({super.key, required this.job, required this.theme});
 
   @override
   Widget build(BuildContext context) {
@@ -331,14 +274,14 @@ class PopularJobTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+        color: theme.cardColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
         children: [
           CircleAvatar(
             radius: 24,
-            backgroundColor: Colors.white,
+            backgroundColor: theme.scaffoldBackgroundColor,
             child: Text(job['logo'], style: const TextStyle(fontSize: 20)),
           ),
           const SizedBox(width: 12),
@@ -348,32 +291,33 @@ class PopularJobTile extends StatelessWidget {
               children: [
                 Text(
                   job['title'],
-                  style: const TextStyle(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
                   ),
                 ),
                 Text(
                   job['company'],
-                  style: const TextStyle(color: Colors.grey),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurface.withOpacity(0.6),
+                  ),
                 ),
               ],
             ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 job['salary'],
-                style: const TextStyle(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  fontSize: 14,
                 ),
               ),
               Text(
                 job['location'],
-                style: const TextStyle(color: Colors.grey, fontSize: 12),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurface.withOpacity(0.6),
+                ),
               ),
             ],
           ),

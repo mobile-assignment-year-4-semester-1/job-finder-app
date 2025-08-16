@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:job_finder_app/features/screens/providers/onboading_provider.dart';
 import 'package:job_finder_app/features/utils/constants/app.colors.dart';
 import 'package:job_finder_app/features/utils/constants/images.dart';
-import 'package:job_finder_app/features/utils/themes/light_mode.dart';
 
 class SeriesOfSlide extends StatelessWidget {
   SeriesOfSlide({super.key});
@@ -12,8 +11,10 @@ class SeriesOfSlide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: CallColors.defaultColor,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: Stack(
         children: [
           PageView(
@@ -59,8 +60,8 @@ class SeriesOfSlide extends StatelessWidget {
                     decoration: BoxDecoration(
                       color:
                           controller.currentPageIndex.value == index
-                              ? AppColors.primary
-                              : Colors.grey[400],
+                              ? theme.colorScheme.primary
+                              : theme.disabledColor,
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
@@ -79,15 +80,18 @@ class SeriesOfSlide extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: controller.skipPage,
-                  child: const Text(
+                  child: Text(
                     'Skip',
-                    style: TextStyle(color: Colors.grey, fontSize: 16),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.disabledColor,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
                 ElevatedButton(
                   onPressed: controller.nextPage,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: CallColors.buttonGreen,
+                    backgroundColor: theme.colorScheme.secondary,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 24,
                       vertical: 12,
@@ -96,9 +100,12 @@ class SeriesOfSlide extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Next',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      fontSize: 16,
+                      color: theme.colorScheme.onSecondary,
+                    ),
                   ),
                 ),
               ],
@@ -125,6 +132,8 @@ class OnBoardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
       child: Column(
@@ -133,9 +142,9 @@ class OnBoardingPage extends StatelessWidget {
           // Circular Image with Background
           Container(
             padding: const EdgeInsets.all(50),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Color(0xFFFFC940), // yellow-orange background
+              color: theme.colorScheme.secondaryContainer, // adapts to theme
             ),
             child: Image.asset(image, height: 200),
           ),
@@ -145,10 +154,8 @@ class OnBoardingPage extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 22,
+            style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
-              color: Colors.black,
             ),
           ),
           const SizedBox(height: 16),
@@ -157,7 +164,10 @@ class OnBoardingPage extends StatelessWidget {
           Text(
             description,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+            style: theme.textTheme.bodyMedium?.copyWith(
+              fontSize: 16,
+              color: theme.hintColor,
+            ),
           ),
         ],
       ),
