@@ -19,16 +19,16 @@ class OnBoardingProvider extends GetxController {
         curve: Curves.easeInOut,
       );
     } else {
-      // Get.offAll(() => DefaultScreen());
-      Get.offAll(() => SignIn());
+      Get.offAll(() => DefaultScreen());
+      // Get.offAll(() => SignIn());
     }
   }
 
-  // void skipPage() {
-  //   // Get.offAll(() => DefaultScreen());
-  //   Get.offAll(() => SignIn());
-  // }
-  void skipPage() => Get.offAll(() => SignIn());
+  void skipPage() {
+    Get.offAll(() => DefaultScreen());
+    // Get.offAll(() => SignIn());
+  }
+  // void skipPage() => Get.offAll(() => SignIn());
 
   @override
   void onClose() {

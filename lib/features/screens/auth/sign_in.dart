@@ -28,8 +28,10 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,8 +53,7 @@ class _SignInState extends State<SignIn> {
                 vertical: 16,
               ),
               child: Form(
-                // ✅ Wrap your Column in a Form
-                key: _formKey, // ✅ Attach the form key here
+                key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -70,7 +71,6 @@ class _SignInState extends State<SignIn> {
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black87,
                       ),
                     ),
                     SizedBox(height: 12),
@@ -113,10 +113,11 @@ class _SignInState extends State<SignIn> {
   }
 
   Widget get _emailField {
+    final theme = Theme.of(context);
     return TextFormField(
       controller: _emailController,
       keyboardType: TextInputType.emailAddress,
-      style: TextStyle(color: Colors.black, fontSize: 16),
+      style: TextStyle(fontSize: 16),
       cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: "Email Address",
@@ -155,7 +156,7 @@ class _SignInState extends State<SignIn> {
     return TextFormField(
       controller: _passwordController,
       obscureText: _obscurePassword,
-      style: TextStyle(color: Colors.black, fontSize: 16),
+      style: TextStyle(fontSize: 16),
       cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: "Password",

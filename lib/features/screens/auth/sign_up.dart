@@ -29,11 +29,11 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
-          // Avoid overflow on small screens
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
             child: Form(
@@ -53,11 +53,7 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(height: 5),
                   Text(
                     'Registration 👍',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8),
                   Text(
@@ -74,7 +70,7 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(height: 16),
                   _confirmPasswordField,
                   SizedBox(height: 30),
-                  _registerButton, // ✅ Use lowercase for getter
+                  _registerButton,
                   SizedBox(height: 35),
                   _OrContinueWith,
                   SizedBox(height: 35),
@@ -104,7 +100,7 @@ class _SignUpState extends State<SignUp> {
     return TextFormField(
       controller: _fullNameController,
       textCapitalization: TextCapitalization.words,
-      style: TextStyle(color: Colors.black, fontSize: 16),
+      style: TextStyle(fontSize: 16),
       cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: "Full Name",
@@ -138,7 +134,7 @@ class _SignUpState extends State<SignUp> {
     return TextFormField(
       controller: _emailController,
       keyboardType: TextInputType.emailAddress,
-      style: TextStyle(color: Colors.black, fontSize: 16),
+      style: TextStyle(fontSize: 16),
       cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: "Email Address",
@@ -177,7 +173,7 @@ class _SignUpState extends State<SignUp> {
     return TextFormField(
       controller: _passwordController,
       obscureText: _obscurePassword,
-      style: TextStyle(color: Colors.black, fontSize: 16),
+      style: TextStyle(fontSize: 16),
       cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: "Password",
@@ -225,7 +221,7 @@ class _SignUpState extends State<SignUp> {
     return TextFormField(
       controller: _confirmPasswordController,
       obscureText: _obscureConfirmPassword,
-      style: TextStyle(color: Colors.black, fontSize: 16),
+      style: TextStyle(fontSize: 16),
       cursorColor: Colors.green,
       decoration: InputDecoration(
         labelText: "Confirm Password",

@@ -63,7 +63,7 @@ class ThemeController extends GetxController {
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Color(0xFF1A2A2D),
       selectedItemColor: Colors.green,
-      unselectedItemColor: Colors.grey,
+      unselectedItemColor: Color.fromARGB(255, 78, 40, 40),
     ),
     colorScheme: ColorScheme.dark(
       primary: const Color(0xFF1A2A2D),
