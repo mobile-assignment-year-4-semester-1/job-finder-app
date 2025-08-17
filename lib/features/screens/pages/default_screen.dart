@@ -15,17 +15,10 @@ class DefaultScreen extends StatefulWidget {
 class _DefaultScreenState extends State<DefaultScreen> {
   int _selectedIndex = 0;
 
-  static final List<Widget> _otherScreens = [
-    HomeScreen(jobs: jobJsonData),
-    const MessageScreen(),
-    const SavedScrean(),
-    const NotificationScreen(),
-  ];
-
-  Future<List<Map<String, dynamic>>> loadJobs() async {
-    await Future.delayed(const Duration(milliseconds: 500));
-    return jobJsonData;
-  }
+  final Future<List<Map<String, dynamic>>> _jobsFuture = Future.delayed(
+    const Duration(milliseconds: 500),
+    () => jobJsonData,
+  );
 
   void _onItemTapped(int index) {
     setState(() {
@@ -37,23 +30,27 @@ class _DefaultScreenState extends State<DefaultScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
+    final List<Widget> screens = [
+      FutureBuilder<List<Map<String, dynamic>>>(
+        future: _jobsFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            return HomeScreen(jobs: snapshot.data ?? []);
+          }
+        },
+      ),
+      const MessageScreen(),
+      const SavedScrean(),
+      const NotificationScreen(),
+    ];
+
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      body:
-          _selectedIndex == 0
-              ? FutureBuilder<List<Map<String, dynamic>>>(
-                future: loadJobs(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else {
-                    return HomeScreen(jobs: snapshot.data ?? []);
-                  }
-                },
-              )
-              : _otherScreens[_selectedIndex - 1],
+      body: IndexedStack(index: _selectedIndex, children: screens),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: theme.bottomNavigationBarTheme.backgroundColor,

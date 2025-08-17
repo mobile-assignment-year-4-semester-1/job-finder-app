@@ -41,7 +41,6 @@ class JobFinder extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           navigatorKey: AppRoute.key,
 
-          // Light Theme
           theme: ThemeData(
             primaryColor: const Color(0xFF2F4B4E),
             fontFamily: 'Roboto',
@@ -56,7 +55,6 @@ class JobFinder extends StatelessWidget {
             ),
           ),
 
-          // Dark Theme
           darkTheme: ThemeData(
             primaryColor: const Color(0xFF1A2A2D),
             fontFamily: 'Roboto',
@@ -71,11 +69,9 @@ class JobFinder extends StatelessWidget {
             ),
           ),
 
-          // Switches automatically when toggled
           themeMode:
               themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
 
-          // Home Screen
           home: const OnboardingScreen(),
           onGenerateRoute: AppRoute.onGenerateRoute,
         );

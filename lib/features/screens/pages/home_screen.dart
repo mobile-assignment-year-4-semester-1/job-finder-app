@@ -162,7 +162,6 @@ class SectionTitle extends StatelessWidget {
   }
 }
 
-// Featured Job Card Widget
 class FeaturedJobCard extends StatelessWidget {
   final Map<String, dynamic> job;
   const FeaturedJobCard({super.key, required this.job});
@@ -254,7 +253,6 @@ class FeaturedJobCard extends StatelessWidget {
   }
 }
 
-// Popular Job Tile Widget
 class PopularJobTile extends StatelessWidget {
   final Map job;
   final ThemeData theme;
@@ -273,8 +271,12 @@ class PopularJobTile extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 24,
-            backgroundColor: theme.scaffoldBackgroundColor,
-            child: const Icon(Icons.work, size: 20, color: Colors.black),
+            backgroundColor: AppColors.background,
+            child: Icon(
+              Icons.work,
+              size: 20,
+              color: AppColors.black.withOpacity(0.6),
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
