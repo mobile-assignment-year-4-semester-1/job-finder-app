@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:job_finder_app/features/utils/constants/app.colors.dart';
 
 class ApplyScreen extends StatefulWidget {
-  const ApplyScreen({super.key});
+  const ApplyScreen({super.key, required Map<String, dynamic> job});
 
   @override
   State<ApplyScreen> createState() => _ApplyScreenState();

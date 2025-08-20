@@ -1,23 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:job_finder_app/features/screens/pages/job_details_screen.dart';
+import 'package:job_finder_app/features/services/databases/jobs_json.dart';
 import 'package:job_finder_app/features/utils/constants/app.colors.dart';
 import 'package:job_finder_app/features/utils/themes/light_mode.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key});
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
   final recentSearches = ["App Developer", "UX Designer", "Product Designer"];
+  List<Map<String, dynamic>> filteredJobs = [];
+  String query = "";
 
-  SearchScreen({super.key});
+  @override
+  void initState() {
+    super.initState();
+    filteredJobs = jobJsonData;
+  }
+
+  void updateSearch(String value) {
+    setState(() {
+      query = value;
+      filteredJobs =
+          jobJsonData
+              .where(
+                (job) => job['title'].toString().toLowerCase().contains(
+                  value.toLowerCase(),
+                ),
+              )
+              .toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: AppColors.defaultColor,
+      // backgroundColor: AppColors.defaultColor,
+      backgroundColor: theme.scaffoldBackgroundColor,
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              // Top Bar
               Row(
                 children: [
                   IconButton(
@@ -36,7 +67,7 @@ class SearchScreen extends StatelessWidget {
                     ),
                   ),
                   Opacity(
-                    opacity: 0, // balance center
+                    opacity: 0,
                     child: IconButton(
                       icon: Icon(Icons.close),
                       onPressed: () {},
@@ -45,12 +76,12 @@ class SearchScreen extends StatelessWidget {
                 ],
               ),
 
-              // Search Field
               SizedBox(height: 10),
               Row(
                 children: [
                   Expanded(
                     child: TextField(
+                      onChanged: updateSearch,
                       decoration: InputDecoration(
                         hintText: "Search a job or position",
                         prefixIcon: Icon(Icons.search),
@@ -73,49 +104,54 @@ class SearchScreen extends StatelessWidget {
                 ],
               ),
 
-              // Recent Searches
               SizedBox(height: 20),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Recent Searches",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              ...recentSearches.map(
-                (item) => ListTile(
-                  leading: Icon(Icons.history),
-                  title: Text(item),
-                  trailing: Icon(Icons.close),
-                  contentPadding: EdgeInsets.zero,
-                ),
-              ),
 
-              SizedBox(height: 10),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Recently Viewed",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-
-              // Recently Viewed Item
-              Card(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.redAccent,
-                    child: Icon(Icons.music_note, color: Colors.white),
-                  ),
-                  title: Text("App Developer"),
-                  subtitle: Text("Beats\nPhnom Penh, Cambodia"),
-                  trailing: Text("\$84,000/y"),
-                  isThreeLine: true,
-                ),
+              Expanded(
+                child:
+                    filteredJobs.isEmpty
+                        ? Center(child: Text("No jobs found"))
+                        : ListView.builder(
+                          itemCount: filteredJobs.length,
+                          itemBuilder: (context, index) {
+                            final job = filteredJobs[index];
+                            return Card(
+                              margin: EdgeInsets.symmetric(vertical: 8),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: ListTile(
+                                leading:
+                                    job['logo_url'] != null
+                                        ? CircleAvatar(
+                                          backgroundColor: Colors.grey[200],
+                                          backgroundImage:
+                                              CachedNetworkImageProvider(
+                                                job['logo_url'],
+                                              ),
+                                        )
+                                        : const CircleAvatar(
+                                          backgroundColor: Colors.grey,
+                                          child: Icon(
+                                            Icons.work,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                title: Text(job['title'] ?? ''),
+                                subtitle: Text(job['location_name'] ?? ''),
+                                trailing: Text(job['salary_text'] ?? ''),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (_) => JobDetailsScreen(job: job),
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
               ),
             ],
           ),

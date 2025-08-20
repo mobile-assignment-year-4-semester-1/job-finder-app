@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:job_finder_app/features/screens/auth/sign_in.dart';
+import 'package:job_finder_app/features/screens/pages/default_screen.dart';
 import 'package:job_finder_app/features/utils/constants/app.colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/constants/icons.dart';
 import '../../utils/themes/light_mode.dart';
 import '../routes/app_route.dart';
@@ -71,19 +73,19 @@ class _SignUpState extends State<SignUp> {
                   _confirmPasswordField,
                   SizedBox(height: 30),
                   _registerButton,
-                  SizedBox(height: 35),
-                  _OrContinueWith,
-                  SizedBox(height: 35),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _socialIcon(CallIcons.apple),
-                      SizedBox(width: 24),
-                      _socialIcon(CallIcons.google),
-                      SizedBox(width: 24),
-                      _socialIcon(CallIcons.facebook),
-                    ],
-                  ),
+                  // SizedBox(height: 35),
+                  // _OrContinueWith,
+                  // SizedBox(height: 35),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     _socialIcon(CallIcons.apple),
+                  //     SizedBox(width: 24),
+                  //     _socialIcon(CallIcons.google),
+                  //     SizedBox(width: 24),
+                  //     _socialIcon(CallIcons.facebook),
+                  //   ],
+                  // ),
                   SizedBox(height: 80),
                   _LoginPrompt,
                   SizedBox(height: 16),
@@ -295,21 +297,21 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  Widget get _OrContinueWith {
-    return Row(
-      children: [
-        Expanded(child: Divider(color: Colors.grey, thickness: 1)),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Text(
-            'Or continue with',
-            style: TextStyle(color: Colors.grey, fontSize: 14),
-          ),
-        ),
-        Expanded(child: Divider(color: Colors.grey, thickness: 1)),
-      ],
-    );
-  }
+  // Widget get _OrContinueWith {
+  //   return Row(
+  //     children: [
+  //       Expanded(child: Divider(color: Colors.grey, thickness: 1)),
+  //       Padding(
+  //         padding: const EdgeInsets.symmetric(horizontal: 8.0),
+  //         child: Text(
+  //           'Or continue with',
+  //           style: TextStyle(color: Colors.grey, fontSize: 14),
+  //         ),
+  //       ),
+  //       Expanded(child: Divider(color: Colors.grey, thickness: 1)),
+  //     ],
+  //   );
+  // }
 
   Widget get _LoginPrompt {
     return Center(
@@ -337,36 +339,41 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  Widget _socialIcon(String assetPath) {
-    return CircleAvatar(
-      radius: 30,
-      backgroundColor: Colors.grey[200],
-      child: Image.asset(assetPath, width: 35, height: 35, fit: BoxFit.contain),
-    );
-  }
+  // Widget _socialIcon(String assetPath) {
+  //   return CircleAvatar(
+  //     radius: 30,
+  //     backgroundColor: Colors.grey[200],
+  //     child: Image.asset(assetPath, width: 35, height: 35, fit: BoxFit.contain),
+  //   );
+  // }
 
   Future<void> _register(String email, String password) async {
     try {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
-          .then((UserCredential user) {
+          .then((UserCredential user) async {
             print("UserCredential : $user");
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setString('uid', user.user?.uid ?? '');
+            await prefs.setString('email', user.user?.email ?? '');
+            await prefs.setBool('isLoggedIn', true);
 
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  "Register Successsfully!",
+                  "Register Successfully!",
                   style: TextStyle(color: AppColors.textWhite, fontSize: 18),
                   textAlign: TextAlign.center,
                 ),
-                duration: Duration(seconds: 2),
+                duration: const Duration(seconds: 2),
                 backgroundColor: AppColors.success,
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(5)),
                 ),
               ),
             );
-            Get.to(SignIn());
+
+            Get.to(DefaultScreen());
           })
           .catchError((error) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -378,9 +385,9 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 behavior: SnackBarBehavior.floating,
-                duration: Duration(seconds: 2),
+                duration: const Duration(seconds: 2),
                 backgroundColor: AppColors.warning,
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(5)),
                 ),
               ),

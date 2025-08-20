@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:job_finder_app/features/screens/pages/default_screen.dart';
-import 'package:job_finder_app/features/utils/constants/app.colors.dart';
-import 'package:job_finder_app/features/utils/themes/light_mode.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         elevation: 0,
         title: const Text(
           "Notifications",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
@@ -24,12 +22,15 @@ class NotificationScreen extends StatelessWidget {
         child: ListView(
           children: [
             const SizedBox(height: 10),
-            const Text(
+            Text(
               "New activity",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 10),
             _notificationItem(
+              context,
               "assets/fiverr.png",
               "Fiverr",
               "want to take a final interview of you where head of HR will see you!",
@@ -37,6 +38,7 @@ class NotificationScreen extends StatelessWidget {
               true,
             ),
             _notificationItem(
+              context,
               "assets/macdonald.png",
               "Macdonald",
               "want to contact with you in 24 hours with proper preparation",
@@ -44,8 +46,9 @@ class NotificationScreen extends StatelessWidget {
               true,
             ),
             const SizedBox(height: 20),
-            _sectionHeader("Applications"),
+            _sectionHeader(context, "Applications"),
             _notificationItem(
+              context,
               "assets/bmw.png",
               "BMW",
               "Your application is submitted successfully to BMW. You can check the status here.",
@@ -53,6 +56,7 @@ class NotificationScreen extends StatelessWidget {
               false,
             ),
             _notificationItem(
+              context,
               "assets/booking.png",
               "Booking.com",
               "reviewing your application, cover letter and portfolio. All the best!",
@@ -60,8 +64,9 @@ class NotificationScreen extends StatelessWidget {
               false,
             ),
             const SizedBox(height: 20),
-            _sectionHeader("Interview"),
+            _sectionHeader(context, "Interview"),
             _notificationItem(
+              context,
               "assets/beats.png",
               "Beats",
               "liked your resume and want to take an interview of you.",
@@ -69,6 +74,7 @@ class NotificationScreen extends StatelessWidget {
               false,
             ),
             _notificationItem(
+              context,
               "assets/behance.png",
               "Behance",
               "You passed the first round. Be prepared for the next!",
@@ -82,23 +88,36 @@ class NotificationScreen extends StatelessWidget {
     );
   }
 
-  Widget _sectionHeader(String title) {
+  Widget _sectionHeader(BuildContext context, String title) {
+    final theme = Theme.of(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-        const Text("See all", style: TextStyle(color: Colors.green)),
+        Text(
+          title,
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          "See all",
+          style: theme.textTheme.bodyMedium?.copyWith(color: Colors.green),
+        ),
       ],
     );
   }
 
   Widget _notificationItem(
+    BuildContext context,
     String imagePath,
     String title,
     String subtitle,
     String time,
     bool showDot,
   ) {
+    final theme = Theme.of(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
@@ -114,14 +133,17 @@ class NotificationScreen extends StatelessWidget {
             child: RichText(
               text: TextSpan(
                 text: "$title ",
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: theme.colorScheme.onBackground,
                 ),
                 children: [
                   TextSpan(
                     text: subtitle,
-                    style: const TextStyle(fontWeight: FontWeight.normal),
+                    style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      color: theme.colorScheme.onBackground,
+                    ),
                   ),
                 ],
               ),
@@ -132,15 +154,18 @@ class NotificationScreen extends StatelessWidget {
             children: [
               Text(
                 time,
-                style: const TextStyle(color: Colors.grey, fontSize: 12),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: Colors.grey,
+                  fontSize: 12,
+                ),
               ),
               if (showDot)
                 Container(
                   margin: const EdgeInsets.only(top: 4),
                   width: 8,
                   height: 8,
-                  decoration: const BoxDecoration(
-                    color: Colors.green,
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primary,
                     shape: BoxShape.circle,
                   ),
                 ),

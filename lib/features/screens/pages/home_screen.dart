@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:job_finder_app/features/screens/components/search_screen.dart';
 import 'package:job_finder_app/features/screens/pages/job_details_screen.dart';
@@ -8,7 +9,7 @@ import 'package:job_finder_app/features/utils/constants/images.dart';
 class HomeScreen extends StatelessWidget {
   final List<Map<String, dynamic>> jobs;
 
-  const HomeScreen({super.key, required this.jobs});
+  HomeScreen({super.key, required this.jobs});
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +68,7 @@ class HomeScreen extends StatelessWidget {
                 Column(
                   children:
                       popularJobs
+                          .take(5)
                           .map((job) => PopularJobTile(job: job, theme: theme))
                           .toList(),
                 ),
@@ -186,26 +188,54 @@ class FeaturedJobCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              width: 28,
-              height: 28,
-              child: Icon(Icons.work, color: AppColors.textWhite, size: 28),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                job['logo_url'] != null && job['logo_url'].toString().isNotEmpty
+                    ? ClipOval(
+                      child: CachedNetworkImage(
+                        imageUrl: job['logo_url'],
+                        fit: BoxFit.cover,
+                        width: 58,
+                        height: 58,
+                        placeholder:
+                            (context, url) => const Center(
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            ),
+                        errorWidget:
+                            (context, url, error) => const Icon(
+                              Icons.error,
+                              size: 40,
+                              color: Colors.red,
+                            ),
+                      ),
+                    )
+                    : const Icon(Icons.work, size: 40, color: Colors.black87),
+
+                const SizedBox(width: 14),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      job['title'] ?? '',
+                      style: const TextStyle(
+                        color: AppColors.textWhite,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    Text(
+                      job['name'] ?? '',
+                      style: const TextStyle(color: AppColors.textWhite),
+                    ),
+                  ],
+                ),
+              ],
             ),
 
-            const SizedBox(height: 4),
-            Text(
-              job['title'] ?? '',
-              style: const TextStyle(
-                color: AppColors.textWhite,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            Text(
-              job['name'] ?? '',
-              style: const TextStyle(color: AppColors.textWhite),
-            ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 14),
+
             Wrap(
               spacing: 6,
               runSpacing: 2,
@@ -215,23 +245,29 @@ class FeaturedJobCard extends StatelessWidget {
                   job['job_type'],
                   job['office_type'],
                 ])
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
+                  if (type != null && type.isNotEmpty)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(
+                        type,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                      ),
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      type ?? '',
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
-                    ),
-                  ),
               ],
             ),
-            const Spacer(),
+
+            const SizedBox(height: 14),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -239,9 +275,8 @@ class FeaturedJobCard extends StatelessWidget {
                   job['salary_text'] ?? '',
                   style: const TextStyle(color: Colors.white, fontSize: 12),
                 ),
-                const Spacer(),
                 Text(
-                  job['location_id'] ?? '',
+                  job['location_name'] ?? '',
                   style: const TextStyle(color: Colors.white, fontSize: 12),
                 ),
               ],
@@ -254,68 +289,87 @@ class FeaturedJobCard extends StatelessWidget {
 }
 
 class PopularJobTile extends StatelessWidget {
-  final Map job;
+  final Map<String, dynamic> job;
   final ThemeData theme;
   const PopularJobTile({super.key, required this.job, required this.theme});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: theme.cardColor,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: [
-          CircleAvatar(
-            radius: 24,
-            backgroundColor: AppColors.background,
-            child: Icon(
-              Icons.work,
-              size: 20,
-              color: AppColors.black.withOpacity(0.6),
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => JobDetailsScreen(job: job)),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: theme.cardColor,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          children: [
+            job['logo_url'] != null && job['logo_url'].toString().isNotEmpty
+                ? ClipOval(
+                  child: CachedNetworkImage(
+                    imageUrl: job['logo_url'],
+                    fit: BoxFit.cover,
+                    width: 44,
+                    height: 44,
+                    placeholder:
+                        (context, url) => const Center(
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        ),
+                    errorWidget:
+                        (context, url, error) => const Icon(
+                          Icons.error,
+                          size: 40,
+                          color: Colors.red,
+                        ),
+                  ),
+                )
+                : const Icon(Icons.work, size: 40, color: Colors.black87),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    job['title'] ?? '',
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    job['company_id'] ?? '',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurface.withOpacity(0.6),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  job['title'] ?? '',
+                  job['salary_text'] ?? '',
                   style: theme.textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  job['company_id'] ?? '',
+                  job['location_id'] ?? '',
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurface.withOpacity(0.6),
                   ),
                 ),
               ],
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                job['salary_text'] ?? '',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                job['location_id'] ?? '',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.6),
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

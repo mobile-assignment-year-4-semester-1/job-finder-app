@@ -5,6 +5,7 @@ import 'package:job_finder_app/features/screens/auth/sign_in.dart';
 import 'package:job_finder_app/features/utils/constants/images.dart';
 import 'package:provider/provider.dart';
 import 'package:job_finder_app/widgets/theme_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileMenuPopup extends StatelessWidget {
   const ProfileMenuPopup({super.key});
@@ -48,7 +49,8 @@ class ProfileMenuPopup extends StatelessWidget {
                     Text(
                       (FirebaseAuth.instance.currentUser?.email ?? 'User')
                           .split('@')
-                          .first,
+                          .first
+                          .toUpperCase(),
                       style: theme.textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: colorScheme.onBackground,
@@ -100,8 +102,14 @@ class ProfileMenuPopup extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onTap: () {
-                        FirebaseAuth.instance.signOut();
+                      onTap: () async {
+                        await FirebaseAuth.instance.signOut();
+
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.clear();
+                        await prefs.remove('uid');
+                        await prefs.remove('email');
+                        await prefs.remove('isLoggedIn');
                         Get.offAll(SignIn());
                       },
                     ),

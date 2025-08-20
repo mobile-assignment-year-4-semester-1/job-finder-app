@@ -186,7 +186,9 @@ class _ResumeUploadScreenState extends State<ResumeUploadScreen> {
                       ? () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (_) => ApplyScreen()),
+                          MaterialPageRoute(
+                            builder: (_) => ApplyScreen(job: {}),
+                          ),
                         );
                       }
                       : null,

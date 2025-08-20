@@ -6,9 +6,9 @@ final List<Map<String, dynamic>> jobJsonData = [
     "company_id": "cmp-1111-aaaa-0001",
     "title": "Software Engineer",
     "name": "Facebook",
-    "logo_url": "https://example.com/logos/facebook.png",
-    "description":
-        "We build Facebook products used by billions. Work on Messenger, Video, News Feed and more.",
+    "logo_url":
+        "https://freebiehive.com/wp-content/uploads/2024/01/Facebook-Icon-PNG-758x473.jpg",
+    "description": "We build Facebook products used by billions.",
     "responsibilities":
         "Full stack web/mobile application development. Implement UI using HTML/CSS/JS.",
     "requirements": "3+ years experience, JS, React, APIs",
@@ -27,14 +27,15 @@ final List<Map<String, dynamic>> jobJsonData = [
     "posted_at": "2025-06-20T09:00:00Z",
     "updated_at": "2025-06-22T10:00:00Z",
     "featured": 1,
-    "popularity_score": 95.5,
+    "popularity_score": 35.5,
   },
   {
     "id": "job-1111-0002",
     "company_id": "cmp-1111-aaaa-0003",
     "title": "UX Intern",
     "name": "Spotify",
-    "logo_url": "https://example.com/logos/spotify.png",
+    "logo_url":
+        "https://toppng.com/uploads/preview/spotify-logo-11609377845tapdd9ujdi.png",
     "description":
         "Design simple delightful product experiences for millions of listeners.",
     "responsibilities":
@@ -62,7 +63,8 @@ final List<Map<String, dynamic>> jobJsonData = [
     "company_id": "cmp-1111-aaaa-0004",
     "title": "Jr Executive",
     "name": "Google",
-    "logo_url": "https://example.com/logos/google.png",
+    "logo_url":
+        "https://w7.pngwing.com/pngs/882/225/png-transparent-google-logo-google-logo-google-search-icon-google-text-logo-business-thumbnail.png",
     "description": "Operations and floor management at Burger King.",
     "responsibilities": "Customer service, inventory.",
     "requirements": "1+ year experience",
@@ -81,14 +83,15 @@ final List<Map<String, dynamic>> jobJsonData = [
     "posted_at": "2025-04-15T08:00:00Z",
     "updated_at": "2025-04-16T08:00:00Z",
     "featured": 1,
-    "popularity_score": 40.0,
+    "popularity_score": 90.0,
   },
   {
     "id": "job-1111-0004",
     "company_id": "cmp-1111-aaaa-0005",
     "title": "Product Manager",
     "name": "Spotify",
-    "logo_url": "https://example.com/logos/spotify.png",
+    "logo_url":
+        "https://toppng.com/uploads/preview/spotify-logo-11609377845tapdd9ujdi.png",
     "description": "Lead product roadmaps for audio devices.",
     "responsibilities": "Define roadmap, work with engineering and design.",
     "requirements": "2+ years PM experience",
@@ -107,14 +110,15 @@ final List<Map<String, dynamic>> jobJsonData = [
     "posted_at": "2025-03-20T08:00:00Z",
     "updated_at": "2025-04-01T09:00:00Z",
     "featured": 0,
-    "popularity_score": 55.3,
+    "popularity_score": 95.0,
   },
   {
     "id": "job-1111-0005",
     "company_id": "cmp-1111-aaaa-0006",
     "title": "UX Designer",
     "name": "Spotify",
-    "logo_url": "https://example.com/logos/spotify.png",
+    "logo_url":
+        "https://toppng.com/uploads/preview/spotify-logo-11609377845tapdd9ujdi.png",
     "description":
         "Design platform interactions and visual design for creators.",
     "responsibilities": "Design systems, prototypes.",
@@ -141,7 +145,8 @@ final List<Map<String, dynamic>> jobJsonData = [
     "company_id": "cmp-1111-aaaa-0007",
     "title": "Full-Stack Developer",
     "name": "Facebook",
-    "logo_url": "https://example.com/logos/facebook.png",
+    "logo_url":
+        "https://freebiehive.com/wp-content/uploads/2024/01/Facebook-Icon-PNG-758x473.jpg",
     "description": "Build internal tools and customer-facing web apps.",
     "responsibilities": "Backend and frontend development.",
     "requirements": "Node, React, SQL",
@@ -160,14 +165,15 @@ final List<Map<String, dynamic>> jobJsonData = [
     "posted_at": "2025-07-01T09:00:00Z",
     "updated_at": "2025-07-05T09:00:00Z",
     "featured": 1,
-    "popularity_score": 80.0,
+    "popularity_score": 97.0,
   },
   {
     "id": "job-1111-0007",
     "company_id": "cmp-1111-aaaa-0008",
     "title": "Motion Designer",
     "name": "Dribbble",
-    "logo_url": "https://example.com/logos/dribbble.png",
+    "logo_url":
+        "https://images.vexels.com/media/users/3/137251/isolated/preview/4dd720f6ca6047fcf50bb14439e2f7af-dribbble-icon-logo.png?w=360",
     "description": "Create slick motion graphics for product launch videos.",
     "responsibilities": "Animate, prepare assets for marketing.",
     "requirements": "After Effects, portfolio",
@@ -186,14 +192,15 @@ final List<Map<String, dynamic>> jobJsonData = [
     "posted_at": "2025-06-15T09:00:00Z",
     "updated_at": "2025-06-20T09:00:00Z",
     "featured": 0,
-    "popularity_score": 45.6,
+    "popularity_score": 99.9,
   },
   {
     "id": "job-1111-0008",
     "company_id": "cmp-1111-aaaa-0009",
     "title": "Backend Developer",
     "name": "Facebook",
-    "logo_url": "https://example.com/logos/facebook.png",
+    "logo_url":
+        "https://freebiehive.com/wp-content/uploads/2024/01/Facebook-Icon-PNG-758x473.jpg",
     "description": "Work on financial systems and integrations.",
     "responsibilities": "Design APIs, maintain services.",
     "requirements": "Go/Java, distributed systems",
@@ -219,7 +226,8 @@ final List<Map<String, dynamic>> jobJsonData = [
     "company_id": "cmp-1111-aaaa-0010",
     "title": "Product Designer",
     "name": "StartupX",
-    "logo_url": "https://example.com/logos/startupx.png",
+    "logo_url":
+        "https://images-platform.99static.com/MIwBOyP3oRpZOfUQRBTCavMIfxc=/500x500/top/smart/99designs-contests-attachments/8/8747/attachment_8747702",
     "description": "End-to-end product design for mobile apps.",
     "responsibilities": "Research, design, test.",
     "requirements": "Strong portfolio, Figma",
@@ -244,8 +252,9 @@ final List<Map<String, dynamic>> jobJsonData = [
     "id": "job-1111-0010",
     "company_id": "cmp-1111-aaaa-0002",
     "title": "Data Engineer",
-    "name": "Facebook",
-    "logo_url": "https://example.com/logos/facebook.png",
+    "name": "StartupX",
+    "logo_url":
+        "https://images-platform.99static.com/MIwBOyP3oRpZOfUQRBTCavMIfxc=/500x500/top/smart/99designs-contests-attachments/8/8747/attachment_8747702",
     "description":
         "- Build data pipelines at scale for search analytics.\n- Go/Java, distributed systems\n- Strong portfolio, Figma",
     "responsibilities": "ETL, data modeling, infra",
@@ -265,6 +274,6 @@ final List<Map<String, dynamic>> jobJsonData = [
     "posted_at": "2025-07-10T09:00:00Z",
     "updated_at": "2025-07-12T09:00:00Z",
     "featured": 1,
-    "popularity_score": 88.2,
+    "popularity_score": 99.2,
   },
 ];

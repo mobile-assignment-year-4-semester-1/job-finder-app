@@ -28,7 +28,6 @@ class OnBoardingProvider extends GetxController {
     Get.offAll(() => DefaultScreen());
     // Get.offAll(() => SignIn());
   }
-  // void skipPage() => Get.offAll(() => SignIn());
 
   @override
   void onClose() {

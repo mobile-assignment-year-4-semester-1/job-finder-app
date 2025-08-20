@@ -44,7 +44,7 @@ class _DefaultScreenState extends State<DefaultScreen> {
         },
       ),
       const MessageScreen(),
-      const SavedScrean(),
+      const SavedJobsScreen(),
       const NotificationScreen(),
     ];
 

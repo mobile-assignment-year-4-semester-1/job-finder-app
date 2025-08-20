@@ -7,14 +7,14 @@ class MessageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         elevation: 0,
         title: const Text(
           'Messages',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
           IconButton(
@@ -54,21 +54,21 @@ class MessageScreen extends StatelessWidget {
               "Google",
               "Are you available for an interview?",
               "11:45 am",
-              "assets/google.png",
+              "assets/logos/google-icon.png",
               4,
             ),
             _chatItem(
-              "HP",
+              "FaceBook",
               "We are looking forward to takin...",
               "11:45 am",
-              "assets/hp.png",
+              "assets/logos/facebook-icon.webp",
               1,
             ),
             _chatItem(
-              "Spotify",
+              "Apple",
               "Are you available for an interview",
               "11:45 am",
-              "assets/spotify.png",
+              "assets/logos/apple-icon.png",
               0,
             ),
             const SizedBox(height: 20),
@@ -81,7 +81,7 @@ class MessageScreen extends StatelessWidget {
               "Rith Adric",
               "We are looking for a web develo...",
               "11:45 am",
-              "assets/erik.png",
+              "assets/images/rithadric.jpg",
               7,
             ),
             _chatItem(
@@ -96,14 +96,14 @@ class MessageScreen extends StatelessWidget {
               "Are you available for an interview",
               "11:45 am",
               "assets/jessica.png",
-              0,
+              3,
             ),
             _chatItem(
               "Aum Lily",
               "Are you available for an interview",
               "11:45 am",
               "assets/rowling.png",
-              0,
+              15,
             ),
           ],
         ),
@@ -122,7 +122,11 @@ class MessageScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
-          CircleAvatar(backgroundImage: AssetImage(imagePath), radius: 24),
+          CircleAvatar(
+            backgroundImage: AssetImage(imagePath),
+            radius: 24,
+            backgroundColor: Colors.grey[200],
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(

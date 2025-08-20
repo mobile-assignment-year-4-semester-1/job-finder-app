@@ -3,7 +3,9 @@ import 'package:flutter/gestures.dart';
 import 'package:job_finder_app/features/screens/pages/default_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:job_finder_app/features/screens/pages/home_screen.dart';
 import 'package:job_finder_app/features/utils/constants/app.colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/constants/icons.dart';
 import '../../utils/themes/light_mode.dart';
@@ -311,10 +313,15 @@ class _SignInState extends State<SignIn> {
 
       print("UserCredential: $userCredential");
 
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('uid', userCredential.user?.uid ?? '');
+      await prefs.setString('email', userCredential.user?.email ?? '');
+      await prefs.setBool('isLoggedIn', true);
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            "Login Successully!",
+            "Login Successfully!",
             style: TextStyle(color: AppColors.textWhite, fontSize: 18),
             textAlign: TextAlign.center,
           ),
