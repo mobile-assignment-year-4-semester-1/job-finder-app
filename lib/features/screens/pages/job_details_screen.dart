@@ -293,7 +293,6 @@ Future<void> showCustomLoginDialog(
   Map<String, dynamic> job,
 ) {
   final theme = Theme.of(context);
-  final colorScheme = theme.colorScheme;
 
   return showDialog<void>(
     context: context,
@@ -372,7 +371,6 @@ Future<void> showCustomLoginDialog(
                         height: 46,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            // backgroundColor: colorScheme.background,
                             backgroundColor: AppColors.background,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
