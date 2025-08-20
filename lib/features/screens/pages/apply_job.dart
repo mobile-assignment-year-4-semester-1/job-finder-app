@@ -34,45 +34,6 @@ class _ApplyScreenState extends State<ApplyScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Row(
-            //   children: [
-            //     const CircleAvatar(
-            //       radius: 24,
-            //       backgroundColor: Colors.green,
-            //       child: Icon(Icons.music_note, color: Colors.white),
-            //     ),
-            //     const SizedBox(width: 12),
-            //     Expanded(
-            //       child: Column(
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: const [
-            //           Text(
-            //             "UX Intern",
-            //             style: TextStyle(
-            //               fontSize: 16,
-            //               fontWeight: FontWeight.bold,
-            //             ),
-            //           ),
-            //           Text("Spotify"),
-            //         ],
-            //       ),
-            //     ),
-            //     Column(
-            //       crossAxisAlignment: CrossAxisAlignment.end,
-            //       children: const [
-            //         Text(
-            //           "\$88,000/y",
-            //           style: TextStyle(
-            //             fontSize: 16,
-            //             fontWeight: FontWeight.bold,
-            //           ),
-            //         ),
-            //         Text("Los Angeles, US"),
-            //       ],
-            //     ),
-            //   ],
-            // ),
-            // const SizedBox(height: 24),
             const Text(
               "Select a profile",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -84,14 +45,16 @@ class _ApplyScreenState extends State<ApplyScreen> {
                   index: 0,
                   title: getUserName(),
                   subtitle: "Job Seeker",
-                  avatar: "https://i.pravatar.cc/150?img=47",
+                  avatar:
+                      "https://static.vecteezy.com/system/resources/previews/024/183/502/non_2x/male-avatar-portrait-of-a-young-man-with-a-beard-illustration-of-male-character-in-modern-color-style-vector.jpg",
                 ),
                 const SizedBox(width: 12),
                 _profileCard(
                   index: 1,
                   title: getUserName(),
                   subtitle: "Job Seeker",
-                  avatar: "https://i.pravatar.cc/150?img=48",
+                  avatar:
+                      "https://img.freepik.com/free-vector/smiling-woman-with-braided-hair_1308-174961.jpg?semt=ais_hybrid&w=740",
                 ),
               ],
             ),
@@ -105,9 +68,8 @@ class _ApplyScreenState extends State<ApplyScreen> {
             const SizedBox(height: 12),
             Row(
               children: [
-                _resumeChip(0, "UX Designer"),
+                _resumeChip(0, getUserName()),
                 const SizedBox(width: 5),
-                _resumeChip(1, "Product Designer"),
               ],
             ),
 
@@ -141,16 +103,17 @@ class _ApplyScreenState extends State<ApplyScreen> {
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
+                    backgroundColor: AppColors.success,
                     content: Text(
                       "Applying...",
                       style: TextStyle(color: AppColors.textWhite),
                       textAlign: TextAlign.center,
                     ),
-                    duration: Duration(seconds: 2),
+                    duration: Duration(seconds: 4),
                   ),
                 );
 
-                Future.delayed(const Duration(seconds: 5), () {
+                Future.delayed(const Duration(seconds: 3), () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -243,25 +206,27 @@ class _ApplyScreenState extends State<ApplyScreen> {
 
     return ChoiceChip(
       selected: isSelected,
-      label: Text(getUserName()),
-
-      avatar: CircleAvatar(
-        backgroundColor: isSelected ? AppColors.grey : Colors.grey.shade400,
-        child: Text(label[0]),
-      ),
+      label: Text(label),
+      avatar:
+          isSelected
+              ? const Icon(Icons.check_circle, color: Colors.green, size: 20)
+              : CircleAvatar(
+                backgroundColor: Colors.grey.shade400,
+                child: Text(
+                  label[0],
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
       onSelected: (_) {
         setState(() {
           selectedResume = index;
         });
       },
-      selectedColor: isSelected ? Colors.green.shade100 : null,
+      selectedColor: Colors.green.shade100,
       labelStyle: TextStyle(
         fontSize: 13.5,
         fontWeight: FontWeight.bold,
-        color:
-            isSelected
-                ? theme.colorScheme.onBackground
-                : theme.colorScheme.onBackground,
+        color: theme.colorScheme.onBackground,
       ),
     );
   }
