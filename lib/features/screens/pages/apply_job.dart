@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:job_finder_app/features/screens/pages/confirm_screen.dart';
 import 'package:job_finder_app/features/utils/constants/app.colors.dart';
 
 class ApplyScreen extends StatefulWidget {
@@ -137,7 +138,27 @@ class _ApplyScreenState extends State<ApplyScreen> {
             const Spacer(),
 
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      "Applying...",
+                      style: TextStyle(color: AppColors.textWhite),
+                      textAlign: TextAlign.center,
+                    ),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+
+                Future.delayed(const Duration(seconds: 5), () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ConfirmationScreen(),
+                    ),
+                  );
+                });
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
                 minimumSize: const Size(double.infinity, 50),
@@ -147,7 +168,7 @@ class _ApplyScreenState extends State<ApplyScreen> {
               ),
               child: const Text(
                 "Apply Now",
-                style: TextStyle(color: AppColors.textWhite),
+                style: TextStyle(color: Colors.white),
               ),
             ),
           ],

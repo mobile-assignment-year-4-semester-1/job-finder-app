@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:job_finder_app/features/screens/pages/apply_job.dart';
 import 'package:job_finder_app/features/screens/pages/job_details_screen.dart';
+import 'package:job_finder_app/features/screens/pages/resume_upload.dart';
 import 'package:job_finder_app/features/utils/constants/app.colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,7 +18,7 @@ class AuthHelper {
     if (isLoggedIn && FirebaseAuth.instance.currentUser != null) {
       Navigator.of(
         context,
-      ).push(MaterialPageRoute(builder: (_) => ApplyScreen(job: job)));
+      ).push(MaterialPageRoute(builder: (_) => ResumeUploadScreen()));
     } else {
       showCustomLoginDialog(context, job);
     }
