@@ -8,7 +8,7 @@ class CallImages {
   static const String imageAdric = "assets/images/image_adric.png";
   static const String imageWork = "assets/images/image_work.png";
   static const String job1 = "assets/images/job1.png";
-  static const String job2 = "assets/images/job2.png";
+  static const String job2 = "assets/images/fining.png";
   static const String loading = "assets/images/Material_wave_loading.gif";
   static const String userProfile = "assets/images/user_profile.png";
 
