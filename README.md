@@ -1,5 +1,4 @@
-# job_finder_app
-
-
 # Installation Guidline
-Flutter Pub Get
+Go to > Terminal > New Terminal
+- Run: Flutter Pub Get
+- Run: Flutter Run
